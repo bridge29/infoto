@@ -7,23 +7,59 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8D3348DB1D0D020B4C2127DA /* Pods_Infoto.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 561180E6D77A717C02B0CFE7 /* Pods_Infoto.framework */; };
 		92DB52491CD476DF00D29FCB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92DB52481CD476DF00D29FCB /* AppDelegate.swift */; };
-		92DB524B1CD476DF00D29FCB /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92DB524A1CD476DF00D29FCB /* ViewController.swift */; };
-		92DB524E1CD476DF00D29FCB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 92DB524C1CD476DF00D29FCB /* Main.storyboard */; };
-		92DB52511CD476DF00D29FCB /* Infoto.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 92DB524F1CD476DF00D29FCB /* Infoto.xcdatamodeld */; };
 		92DB52531CD476DF00D29FCB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 92DB52521CD476DF00D29FCB /* Assets.xcassets */; };
 		92DB52561CD476DF00D29FCB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 92DB52541CD476DF00D29FCB /* LaunchScreen.storyboard */; };
+		92DB52731CD477B900D29FCB /* BaseClasses.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92DB52601CD477B900D29FCB /* BaseClasses.swift */; };
+		92DB52741CD477B900D29FCB /* DisplayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92DB52611CD477B900D29FCB /* DisplayViewController.swift */; };
+		92DB52751CD477B900D29FCB /* FileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92DB52621CD477B900D29FCB /* FileCell.swift */; };
+		92DB52761CD477B900D29FCB /* Files.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92DB52631CD477B900D29FCB /* Files.swift */; };
+		92DB52771CD477B900D29FCB /* Files+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92DB52641CD477B900D29FCB /* Files+CoreDataProperties.swift */; };
+		92DB52781CD477B900D29FCB /* FileTVController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92DB52651CD477B900D29FCB /* FileTVController.swift */; };
+		92DB52791CD477B900D29FCB /* Folders.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92DB52661CD477B900D29FCB /* Folders.swift */; };
+		92DB527A1CD477B900D29FCB /* Folders+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92DB52671CD477B900D29FCB /* Folders+CoreDataProperties.swift */; };
+		92DB527B1CD477B900D29FCB /* FolderTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92DB52681CD477B900D29FCB /* FolderTVCell.swift */; };
+		92DB527C1CD477B900D29FCB /* FolderTVController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92DB52691CD477B900D29FCB /* FolderTVController.swift */; };
+		92DB527D1CD477B900D29FCB /* helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92DB526A1CD477B900D29FCB /* helper.swift */; };
+		92DB527E1CD477B900D29FCB /* MenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92DB526B1CD477B900D29FCB /* MenuCell.swift */; };
+		92DB527F1CD477B900D29FCB /* MenuTVController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92DB526C1CD477B900D29FCB /* MenuTVController.swift */; };
+		92DB52801CD477B900D29FCB /* NewFileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92DB526D1CD477B900D29FCB /* NewFileViewController.swift */; };
+		92DB52811CD477B900D29FCB /* NewFolderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92DB526E1CD477B900D29FCB /* NewFolderViewController.swift */; };
+		92DB52821CD477B900D29FCB /* settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92DB526F1CD477B900D29FCB /* settings.swift */; };
+		92DB52831CD477B900D29FCB /* SuggestTVController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92DB52701CD477B900D29FCB /* SuggestTVController.swift */; };
+		92DB52841CD477B900D29FCB /* Infoto.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 92DB52711CD477B900D29FCB /* Infoto.xcdatamodeld */; };
+		92DB52871CD47A0200D29FCB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 92DB52861CD47A0200D29FCB /* Main.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3716341EB62FF19950C47E05 /* Pods-Infoto.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Infoto.release.xcconfig"; path = "Pods/Target Support Files/Pods-Infoto/Pods-Infoto.release.xcconfig"; sourceTree = "<group>"; };
+		561180E6D77A717C02B0CFE7 /* Pods_Infoto.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Infoto.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5968B683B141F9622E93FA6C /* Pods-Infoto.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Infoto.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Infoto/Pods-Infoto.debug.xcconfig"; sourceTree = "<group>"; };
 		92DB52451CD476DD00D29FCB /* Infoto.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Infoto.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		92DB52481CD476DF00D29FCB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		92DB524A1CD476DF00D29FCB /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		92DB524D1CD476DF00D29FCB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		92DB52501CD476DF00D29FCB /* Infoto.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Infoto.xcdatamodel; sourceTree = "<group>"; };
 		92DB52521CD476DF00D29FCB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		92DB52551CD476DF00D29FCB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		92DB52571CD476DF00D29FCB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		92DB52601CD477B900D29FCB /* BaseClasses.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseClasses.swift; sourceTree = "<group>"; };
+		92DB52611CD477B900D29FCB /* DisplayViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DisplayViewController.swift; sourceTree = "<group>"; };
+		92DB52621CD477B900D29FCB /* FileCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileCell.swift; sourceTree = "<group>"; };
+		92DB52631CD477B900D29FCB /* Files.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Files.swift; sourceTree = "<group>"; };
+		92DB52641CD477B900D29FCB /* Files+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Files+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		92DB52651CD477B900D29FCB /* FileTVController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileTVController.swift; sourceTree = "<group>"; };
+		92DB52661CD477B900D29FCB /* Folders.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Folders.swift; sourceTree = "<group>"; };
+		92DB52671CD477B900D29FCB /* Folders+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Folders+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		92DB52681CD477B900D29FCB /* FolderTVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FolderTVCell.swift; sourceTree = "<group>"; };
+		92DB52691CD477B900D29FCB /* FolderTVController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FolderTVController.swift; sourceTree = "<group>"; };
+		92DB526A1CD477B900D29FCB /* helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = helper.swift; sourceTree = "<group>"; };
+		92DB526B1CD477B900D29FCB /* MenuCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuCell.swift; sourceTree = "<group>"; };
+		92DB526C1CD477B900D29FCB /* MenuTVController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuTVController.swift; sourceTree = "<group>"; };
+		92DB526D1CD477B900D29FCB /* NewFileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewFileViewController.swift; sourceTree = "<group>"; };
+		92DB526E1CD477B900D29FCB /* NewFolderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewFolderViewController.swift; sourceTree = "<group>"; };
+		92DB526F1CD477B900D29FCB /* settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = settings.swift; sourceTree = "<group>"; };
+		92DB52701CD477B900D29FCB /* SuggestTVController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SuggestTVController.swift; sourceTree = "<group>"; };
+		92DB52721CD477B900D29FCB /* PhoneJunk.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PhoneJunk.xcdatamodel; sourceTree = "<group>"; };
+		92DB52851CD47A0200D29FCB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,6 +67,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8D3348DB1D0D020B4C2127DA /* Pods_Infoto.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -42,6 +79,8 @@
 			children = (
 				92DB52471CD476DF00D29FCB /* Infoto */,
 				92DB52461CD476DD00D29FCB /* Products */,
+				9C3DEA217AF23EBA4FF190B1 /* Pods */,
+				BB894D79455BEB7C721640B6 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -57,14 +96,71 @@
 			isa = PBXGroup;
 			children = (
 				92DB52481CD476DF00D29FCB /* AppDelegate.swift */,
-				92DB524A1CD476DF00D29FCB /* ViewController.swift */,
-				92DB524C1CD476DF00D29FCB /* Main.storyboard */,
+				92DB526A1CD477B900D29FCB /* helper.swift */,
+				92DB526F1CD477B900D29FCB /* settings.swift */,
+				92DB525D1CD4775400D29FCB /* Controller */,
+				92DB525F1CD4776B00D29FCB /* View */,
+				92DB525E1CD4776500D29FCB /* Model */,
 				92DB52521CD476DF00D29FCB /* Assets.xcassets */,
-				92DB52541CD476DF00D29FCB /* LaunchScreen.storyboard */,
 				92DB52571CD476DF00D29FCB /* Info.plist */,
-				92DB524F1CD476DF00D29FCB /* Infoto.xcdatamodeld */,
+				92DB52541CD476DF00D29FCB /* LaunchScreen.storyboard */,
 			);
 			path = Infoto;
+			sourceTree = "<group>";
+		};
+		92DB525D1CD4775400D29FCB /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				92DB52601CD477B900D29FCB /* BaseClasses.swift */,
+				92DB52651CD477B900D29FCB /* FileTVController.swift */,
+				92DB52691CD477B900D29FCB /* FolderTVController.swift */,
+				92DB526C1CD477B900D29FCB /* MenuTVController.swift */,
+				92DB526D1CD477B900D29FCB /* NewFileViewController.swift */,
+				92DB526E1CD477B900D29FCB /* NewFolderViewController.swift */,
+				92DB52611CD477B900D29FCB /* DisplayViewController.swift */,
+				92DB52701CD477B900D29FCB /* SuggestTVController.swift */,
+				92DB52711CD477B900D29FCB /* Infoto.xcdatamodeld */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		92DB525E1CD4776500D29FCB /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				92DB52661CD477B900D29FCB /* Folders.swift */,
+				92DB52631CD477B900D29FCB /* Files.swift */,
+				92DB52671CD477B900D29FCB /* Folders+CoreDataProperties.swift */,
+				92DB52641CD477B900D29FCB /* Files+CoreDataProperties.swift */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		92DB525F1CD4776B00D29FCB /* View */ = {
+			isa = PBXGroup;
+			children = (
+				92DB52861CD47A0200D29FCB /* Main.storyboard */,
+				92DB526B1CD477B900D29FCB /* MenuCell.swift */,
+				92DB52681CD477B900D29FCB /* FolderTVCell.swift */,
+				92DB52621CD477B900D29FCB /* FileCell.swift */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		9C3DEA217AF23EBA4FF190B1 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				5968B683B141F9622E93FA6C /* Pods-Infoto.debug.xcconfig */,
+				3716341EB62FF19950C47E05 /* Pods-Infoto.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		BB894D79455BEB7C721640B6 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				561180E6D77A717C02B0CFE7 /* Pods_Infoto.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -74,9 +170,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 92DB525A1CD476DF00D29FCB /* Build configuration list for PBXNativeTarget "Infoto" */;
 			buildPhases = (
+				D5BD6B8CE024F50D93DD7A00 /* Check Pods Manifest.lock */,
 				92DB52411CD476DD00D29FCB /* Sources */,
 				92DB52421CD476DD00D29FCB /* Frameworks */,
 				92DB52431CD476DD00D29FCB /* Resources */,
+				03A81A7A7BA61ABD49E24500 /* Embed Pods Frameworks */,
+				631ABE48DB006A40F9138056 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -125,42 +224,107 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				92DB52871CD47A0200D29FCB /* Main.storyboard in Resources */,
 				92DB52561CD476DF00D29FCB /* LaunchScreen.storyboard in Resources */,
 				92DB52531CD476DF00D29FCB /* Assets.xcassets in Resources */,
-				92DB524E1CD476DF00D29FCB /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		03A81A7A7BA61ABD49E24500 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Infoto/Pods-Infoto-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		631ABE48DB006A40F9138056 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Infoto/Pods-Infoto-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D5BD6B8CE024F50D93DD7A00 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		92DB52411CD476DD00D29FCB /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				92DB524B1CD476DF00D29FCB /* ViewController.swift in Sources */,
-				92DB52511CD476DF00D29FCB /* Infoto.xcdatamodeld in Sources */,
+				92DB52741CD477B900D29FCB /* DisplayViewController.swift in Sources */,
+				92DB52801CD477B900D29FCB /* NewFileViewController.swift in Sources */,
+				92DB527C1CD477B900D29FCB /* FolderTVController.swift in Sources */,
+				92DB52831CD477B900D29FCB /* SuggestTVController.swift in Sources */,
+				92DB52761CD477B900D29FCB /* Files.swift in Sources */,
+				92DB527F1CD477B900D29FCB /* MenuTVController.swift in Sources */,
+				92DB52731CD477B900D29FCB /* BaseClasses.swift in Sources */,
+				92DB52781CD477B900D29FCB /* FileTVController.swift in Sources */,
+				92DB52751CD477B900D29FCB /* FileCell.swift in Sources */,
+				92DB527B1CD477B900D29FCB /* FolderTVCell.swift in Sources */,
+				92DB527D1CD477B900D29FCB /* helper.swift in Sources */,
 				92DB52491CD476DF00D29FCB /* AppDelegate.swift in Sources */,
+				92DB52841CD477B900D29FCB /* Infoto.xcdatamodeld in Sources */,
+				92DB52811CD477B900D29FCB /* NewFolderViewController.swift in Sources */,
+				92DB527E1CD477B900D29FCB /* MenuCell.swift in Sources */,
+				92DB52771CD477B900D29FCB /* Files+CoreDataProperties.swift in Sources */,
+				92DB527A1CD477B900D29FCB /* Folders+CoreDataProperties.swift in Sources */,
+				92DB52821CD477B900D29FCB /* settings.swift in Sources */,
+				92DB52791CD477B900D29FCB /* Folders.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		92DB524C1CD476DF00D29FCB /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				92DB524D1CD476DF00D29FCB /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		92DB52541CD476DF00D29FCB /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				92DB52551CD476DF00D29FCB /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		92DB52861CD47A0200D29FCB /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				92DB52851CD47A0200D29FCB /* Base */,
+			);
+			name = Main.storyboard;
+			path = ../../../PhoneFiles_App/PhoneJunk/PhoneJunk;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -251,8 +415,10 @@
 		};
 		92DB525B1CD476DF00D29FCB /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5968B683B141F9622E93FA6C /* Pods-Infoto.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = Infoto/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tohism.Infoto;
@@ -262,8 +428,10 @@
 		};
 		92DB525C1CD476DF00D29FCB /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3716341EB62FF19950C47E05 /* Pods-Infoto.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = Infoto/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tohism.Infoto;
@@ -290,17 +458,19 @@
 				92DB525C1CD476DF00D29FCB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		92DB524F1CD476DF00D29FCB /* Infoto.xcdatamodeld */ = {
+		92DB52711CD477B900D29FCB /* Infoto.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				92DB52501CD476DF00D29FCB /* Infoto.xcdatamodel */,
+				92DB52721CD477B900D29FCB /* PhoneJunk.xcdatamodel */,
 			);
-			currentVersion = 92DB52501CD476DF00D29FCB /* Infoto.xcdatamodel */;
-			path = Infoto.xcdatamodeld;
+			currentVersion = 92DB52721CD477B900D29FCB /* PhoneJunk.xcdatamodel */;
+			name = Infoto.xcdatamodeld;
+			path = PhoneJunk.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};
