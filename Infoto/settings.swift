@@ -89,7 +89,7 @@ var maxFileCount : Int {
     get {
         let returnValue = NSUserDefaults.standardUserDefaults().objectForKey("maxFileCount") as? Int
         if returnValue == nil {
-            return 4
+            return 2
         }
         return returnValue!
     }

@@ -17,7 +17,7 @@ class MenuTVController: BaseTVC, EasyTipViewDelegate {
                      "Important Note!",
                      "Rate Us",
                      "Support & Feedback",
-                     "Upgrade: Unlimited files for $\(PREMIUM_COST)"]
+                     "Upgrade: Unlimited infotos for $\(PREMIUM_COST)"]
 
     override func viewDidLoad() {
         super.viewDidLoad()
