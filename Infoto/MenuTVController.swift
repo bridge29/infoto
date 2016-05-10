@@ -70,7 +70,7 @@ class MenuTVController: BaseTVC, EasyTipViewDelegate {
             if !tipIsOpen {
                 tipIsOpen = true
             
-                guard let cell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 0)) as? MenuCell else {
+                guard let cell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 5, inSection: 0)) as? MenuCell else {
                     break
                 }
                 let prefs = getTipPreferences()
@@ -89,8 +89,8 @@ class MenuTVController: BaseTVC, EasyTipViewDelegate {
         case 1:
             sortFolderMode = true
             self.navigationController?.popViewControllerAnimated(true)
-        case 2:
-            //UIApplication.sharedApplication().openURL(NSURL(string : "LINK_GOES_HERE")!)
+        case 6:
+            UIApplication.sharedApplication().openURL(NSURL(string:"http://tohism.com/infotos-app")!)
             break
         case 7:
             self.purchaseProduct()

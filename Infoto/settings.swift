@@ -7,9 +7,15 @@
 //
 // TODO:
 // Menu
-// - Suggestions table, folders and file ideas
-// - Support & feedback on tohism site.
-// - Upgrade functionality - set maxFiles when upgraded.
+// - Create support & feedback page on tohism (form that gets emailed to bridge3@tohism.com)
+// - Complete Upgrade functionality - set maxFiles when upgraded.
+// - Allow one tap on photo/video to go into display scene
+// - Remove upgrade in menu list if has upgraded
+// - Add rate us link once we have the link (after 1st submission)
+// - Clean up: Tips/messages
+//             Menu font?
+//
+
 
 
 import UIKit
