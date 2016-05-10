@@ -7,7 +7,6 @@
 //
 // TODO:
 // Menu
-// - Issue with sending message - recipients getting covered
 // - Suggestions table, folders and file ideas
 // - Support & feedback on tohism site.
 // - Upgrade functionality - set maxFiles when upgraded.
@@ -17,9 +16,11 @@ import UIKit
 import EasyTipView
 
 let APP_NAME       = "Infoto"
+let IAP_ID         = "com.tohism.Infoto.unlimited_infotos"
 let PRE_TITLE_TEXT = "Title..."
 let PRE_DESC_TEXT  = "Description..."
 let PREMIUM_COST   = "1.99"
+var sortFolderMode = false
 let fileTypes      = ["Photo","Video"] //,"Audio","Text"]
 let fullTipList    = ["folder_1","folder_2","folder_3","folder_4",
                       "file_1","file_2","file_3","file_4","file_5","file_6", "last"]
@@ -89,7 +90,7 @@ var maxFileCount : Int {
     get {
         let returnValue = NSUserDefaults.standardUserDefaults().objectForKey("maxFileCount") as? Int
         if returnValue == nil {
-            return 2
+            return 5
         }
         return returnValue!
     }

@@ -10,14 +10,16 @@ import UIKit
 import CoreData
 import LocalAuthentication
 import EasyTipView
+import SwiftyStoreKit
 
 class FolderTVController: BaseTVC, NSFetchedResultsControllerDelegate, EasyTipViewDelegate {
     
+    @IBOutlet weak var newFolderButton: UIBarButtonItem!
     var selectedFolder : Folders!
     
     lazy var fetchedResultsController: NSFetchedResultsController = {
         let foldersFetchRequest   = NSFetchRequest(entityName: "Folders")
-        let primarySortDescriptor = NSSortDescriptor(key: "name", ascending: true)
+        let primarySortDescriptor = NSSortDescriptor(key: "orderPosition", ascending: true)
         //let secondarySortDescriptor = NSSortDescriptor(key: "commonName", ascending: true)
         foldersFetchRequest.sortDescriptors = [primarySortDescriptor]
         
@@ -34,6 +36,7 @@ class FolderTVController: BaseTVC, NSFetchedResultsControllerDelegate, EasyTipVi
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
         
         NSUserDefaults.standardUserDefaults().setValue(false, forKey: "_UIConstraintBasedLayoutLogUnsatisfiable")
         
@@ -50,13 +53,13 @@ class FolderTVController: BaseTVC, NSFetchedResultsControllerDelegate, EasyTipVi
         if (NSUserDefaults.standardUserDefaults().valueForKey("v1.0") == nil) {
             
             //// CREATE FOLDERS FOR FIRST TIME USERS
-            for (name, isLocked, daysTilDelete) in [("Temp",false,7), ("Private",true,0), ("Misc",false,0)] {
-                self.createFolder(name, isLocked: isLocked, daysTilDelete:daysTilDelete)
+            for (orderPosition,(name, isLocked, daysTilDelete)) in [("Temporary",false,7), ("Private",true,0), ("Misc",false,0)].enumerate() {
+                self.createFolder(name, isLocked: isLocked, daysTilDelete:daysTilDelete, orderPosition:orderPosition)
             }
             
             //// CREATE SAMPLE FILES FOR FIRST TIME USERS
             let fileName1 = "\(Int(NSDate().timeIntervalSince1970)).jpg"
-            UIImageJPEGRepresentation(UIImage(named: "camera")!,1.0)!.writeToFile(getFilePath(fileName1), atomically: true)
+            UIImageJPEGRepresentation(UIImage(named: "camera_folder")!,1.0)!.writeToFile(getFilePath(fileName1), atomically: true)
             let newFile1 = NSEntityDescription.insertNewObjectForEntityForName("Files", inManagedObjectContext: self.moc)
             newFile1.setValue("Passport Info", forKey: "title")
             newFile1.setValue("Key Details:\nPassport #:1234567\nIssued:10/10/13\nExpires:10/10/23", forKey: "desc")
@@ -67,7 +70,7 @@ class FolderTVController: BaseTVC, NSFetchedResultsControllerDelegate, EasyTipVi
             newFile1.setValue(fetchedResultsController.fetchedObjects?.last, forKey: "whichFolder")
             
             let fileName2 = "\(Int(NSDate().timeIntervalSince1970) + 1).jpg"
-            UIImageJPEGRepresentation(UIImage(named: "camera")!,1.0)!.writeToFile(getFilePath(fileName2), atomically: true)
+            UIImageJPEGRepresentation(UIImage(named: "infoto_launch")!,1.0)!.writeToFile(getFilePath(fileName2), atomically: true)
             let newFile2 = NSEntityDescription.insertNewObjectForEntityForName("Files", inManagedObjectContext: self.moc)
             newFile2.setValue("Passport Info", forKey: "title")
             newFile2.setValue("This is an example file\n\nKey Details:\nPassport #:1234567\nIssued:10/10/13\nExpires:10/10/23", forKey: "desc")
@@ -94,6 +97,12 @@ class FolderTVController: BaseTVC, NSFetchedResultsControllerDelegate, EasyTipVi
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         tableView.reloadData()
+        
+        if sortFolderMode {
+            self.editing = true
+            self.navigationItem.leftBarButtonItem?.title = "Done"
+            self.navigationItem.leftBarButtonItem?.image = nil
+        }
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -188,7 +197,6 @@ class FolderTVController: BaseTVC, NSFetchedResultsControllerDelegate, EasyTipVi
     func goToFileFromTips() {
         let cell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 2)) as! FolderTVCell
         performSegueWithIdentifier("folder2file", sender: cell)
-
     }
     
     // MARK: - Table view data source
@@ -207,7 +215,7 @@ class FolderTVController: BaseTVC, NSFetchedResultsControllerDelegate, EasyTipVi
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         let cell: FolderTVCell = tableView.dequeueReusableCellWithIdentifier("FolderCell", forIndexPath: indexPath) as! FolderTVCell
-        cell.folder            = fetchedResultsController.objectAtIndexPath(indexPath) as! Folders
+        cell.folder            = fetchedResultsController.fetchedObjects![indexPath.section] as! Folders
         cell.titleLabel.text   = (cell.folder.daysTilDelete == 0) ? cell.folder.name : "\(cell.folder.name!) - \(cell.folder.daysTilDelete)"
         
         if cell.folder.isLocked {
@@ -251,6 +259,37 @@ class FolderTVController: BaseTVC, NSFetchedResultsControllerDelegate, EasyTipVi
         // need to invoke this method to have editActions work. No code needed.
     }
     
+    override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return (sortFolderMode) ? true : false
+    }
+    
+//    override func tableView(tableView: UITableView, editingStyleForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCellEditingStyle {
+//        return UITableViewCellEditingStyle.None
+//    }
+    
+    override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
+        if let fetchedObjects = self.fetchedResultsController.fetchedObjects {
+            
+            if fromIndexPath.section > toIndexPath.section {
+                
+                for i in toIndexPath.section..<fromIndexPath.section {
+                    //print("\(i) \(toIndexPath.section) \(fromIndexPath.section)")
+                    fetchedObjects[i].setValue(i+1, forKey: "orderPosition")
+                }
+                fetchedObjects[fromIndexPath.section].setValue(toIndexPath.section, forKey: "orderPosition")
+            }
+            
+            if fromIndexPath.section < toIndexPath.section {
+                for i in fromIndexPath.section + 1...toIndexPath.section {
+                    //print("down \(i) \(toIndexPath.section) \(fromIndexPath.section)")
+                    fetchedObjects[i].setValue(i-1, forKey: "orderPosition")
+                }
+                fetchedObjects[fromIndexPath.section].setValue(toIndexPath.section, forKey: "orderPosition")
+            }
+        }
+        self.saveContext()
+    }
+    
     override func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
         let editAction = UITableViewRowAction(style: .Normal, title: "  Edit  ") { action, index in
             self.checkAuthAndSegue(indexPath, segueToFile: false)
@@ -271,7 +310,7 @@ class FolderTVController: BaseTVC, NSFetchedResultsControllerDelegate, EasyTipVi
                     let noAction1: UIAlertAction     = UIAlertAction(title: "Nope", style: .Default) { action -> Void in }
                     let deleteAction1: UIAlertAction = UIAlertAction(title: "Yes", style: .Default) { action -> Void in
                         
-                        let actionSheetController2: UIAlertController = UIAlertController(title: "Final Delete Check", message: "One last time, are you sure you want to delete this folder?", preferredStyle: .Alert)
+                        let actionSheetController2: UIAlertController = UIAlertController(title: "Delete", message: "One last prompt, delete this folder and its files?", preferredStyle: .Alert)
                         let noAction2: UIAlertAction     = UIAlertAction(title: "Nope", style: .Default) { action -> Void in }
                         let deleteAction2: UIAlertAction = UIAlertAction(title: "DELETE IT!", style: .Default) { action -> Void in
                             self.deleteFolder(folder)
@@ -300,7 +339,7 @@ class FolderTVController: BaseTVC, NSFetchedResultsControllerDelegate, EasyTipVi
     }
     
     override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 10
+        return (sortFolderMode) ? 0 : 10
     }
     
     override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -407,6 +446,23 @@ class FolderTVController: BaseTVC, NSFetchedResultsControllerDelegate, EasyTipVi
         }
     }
     
+    override func shouldPerformSegueWithIdentifier(identifier: String, sender: AnyObject?) -> Bool {
+        if (identifier == "folder2menu") {
+            if (sortFolderMode) {
+                sortFolderMode = false
+                self.editing   = false
+                self.navigationItem.leftBarButtonItem?.title = nil
+                self.navigationItem.leftBarButtonItem?.image = UIImage(named: "menuIcon")
+                self.tableView.reloadData()
+                return false
+            }
+        }else if (sortFolderMode){
+            notifyAlert(self, title: "Sorting Mode", message: "Finish sorting before creating a new folder")
+            return false
+        }
+        return true
+    }
+    
 
     // MARK: - Navigation
 
@@ -430,6 +486,8 @@ class FolderTVController: BaseTVC, NSFetchedResultsControllerDelegate, EasyTipVi
                     let indexPath  = sender as! NSIndexPath
                     dvc.editFolder = self.fetchedResultsController.objectAtIndexPath(indexPath) as! Folders
                     dvc.editMode   = true
+                } else if let fetchedObjects = self.fetchedResultsController.fetchedObjects {
+                        dvc.orderPosition = fetchedObjects.count
                 }
             default:
                 break

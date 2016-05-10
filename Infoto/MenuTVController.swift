@@ -12,10 +12,11 @@ import EasyTipView
 class MenuTVController: BaseTVC, EasyTipViewDelegate {
     
     let menuItems = ["What's an infoto?",
-                     "Reset tips",
+                     "Sort Folders",
                      "Suggestions",
                      "Important Note!",
                      "Rate Us",
+                     "Reset tips",
                      "Support & Feedback",
                      "Upgrade: Unlimited infotos for $\(PREMIUM_COST)"]
 
@@ -61,7 +62,7 @@ class MenuTVController: BaseTVC, EasyTipViewDelegate {
         case 0:
             let msgStr = "Infotos are photos and videos used for storing information. Infotos are awesome but people hesitate to take them. After all who wants to litter their camera roll with tons of infotos just to spend time digging for them when they're needed? This app solves both those problems by housing all of your infotos for you!"
             showPopupMessage(msgStr, widthMult:0.9, heightMult:0.4, remove:false)
-        case 1:
+        case 5:
             self.removePopup()
             
             activeTips = fullTipList
@@ -85,11 +86,14 @@ class MenuTVController: BaseTVC, EasyTipViewDelegate {
         case 3:
             showPopupMessage("Every day is a cloudless day here. All infotos are only stored on the phone and not synced to any clouds.", widthMult:0.9, heightMult:0.4, remove:false)
             break
-        case 4:
-            break
-        case 5:
+        case 1:
+            sortFolderMode = true
+            self.navigationController?.popViewControllerAnimated(true)
+        case 2:
             //UIApplication.sharedApplication().openURL(NSURL(string : "LINK_GOES_HERE")!)
             break
+        case 7:
+            self.purchaseProduct()
         default:
             snp()
         }

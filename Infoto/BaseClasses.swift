@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreData
+import SwiftyStoreKit
 
 
 class BaseVC: UIViewController {
@@ -22,7 +23,7 @@ class BaseVC: UIViewController {
     }
     
     //// Creates folder item in core data
-    func createFolder(name:String, isLocked:Bool, daysTilDelete:Int = 0){
+    func createFolder(name:String, isLocked:Bool, daysTilDelete:Int = 0, orderPosition:Int = 0){
         
         //// Make fetch request to check if folder already exists.
         //// Can't have two folders with same name.
@@ -44,6 +45,7 @@ class BaseVC: UIViewController {
         newFolder.setValue(name, forKey: "name")
         newFolder.setValue(isLocked, forKey: "isLocked")
         newFolder.setValue(daysTilDelete, forKey:"daysTilDelete")
+        newFolder.setValue(orderPosition, forKey: "orderPosition")
         saveContext()
     }
     
@@ -146,6 +148,33 @@ class BaseTVC: UITableViewController {
         }
     }
     
+    func getIAPInfo() {
+        SwiftyStoreKit.retrieveProductsInfo([IAP_ID]) { result in
+            if let product = result.retrievedProducts.first {
+                let priceString = NSNumberFormatter.localizedStringFromNumber(product.price ?? 0, numberStyle: .CurrencyStyle)
+                print("Product: \(product.localizedDescription), price: \(priceString)")
+            }
+            else if let invalidProductId = result.invalidProductIDs.first {
+                return notifyAlert(self, title:"Could not retrieve product info", message: "Invalid product identifier: \(invalidProductId)")
+            }
+            else {
+                print("Error: \(result.error)")
+            }
+        }
+    }
+    
+    func purchaseProduct(){
+        SwiftyStoreKit.purchaseProduct(IAP_ID) { result in
+            switch result {
+                case .Success(let productId):
+                    print("Purchase Success: \(productId)")
+                    maxFileCount = 0
+                case .Error(let error):
+                    print("Purchase Failed: \(error)")
+            }
+        }
+    }
+    
     func segueFile2newFile(action: UIAlertAction!){
         self.performSegueWithIdentifier("file2newFile", sender: action)
     }
@@ -165,7 +194,7 @@ class BaseTVC: UITableViewController {
             }
             let okAction: UIAlertAction = UIAlertAction(title: "Upgrade", style: .Default) { action -> Void in
                 //// Go to in app purchase
-                plx()
+                self.purchaseProduct()
             }
             actionSheetController.addAction(cancelAction)
             actionSheetController.addAction(okAction)
@@ -283,7 +312,7 @@ class BaseTVC: UITableViewController {
     }
     
     //// Creates folder item in core data
-    func createFolder(name:String, isLocked:Bool, daysTilDelete:Int = 0){
+    func createFolder(name:String, isLocked:Bool, daysTilDelete:Int = 0, orderPosition:Int = 0){
         
         let fetchRequest = NSFetchRequest(entityName: "Folders")
         fetchRequest.predicate = NSPredicate(format: "name == %@", name)
@@ -301,6 +330,7 @@ class BaseTVC: UITableViewController {
         newFolder.setValue(name, forKey: "name")
         newFolder.setValue(isLocked, forKey: "isLocked")
         newFolder.setValue(daysTilDelete, forKey:"daysTilDelete")
+        newFolder.setValue(orderPosition, forKey: "orderPosition")
         saveContext()
         //print("Created Folder: \(name)")
     }

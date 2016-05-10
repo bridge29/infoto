@@ -10,17 +10,16 @@ import UIKit
 
 class SuggestTVController: UITableViewController {
 
-    let suggestItems = ["receipts",
-                        "ads (commercial, magazine, billboards, etc.)",
-                        "Shopping (wish list)",
-                        "directions",
-                        "past haircuts",
-                        "menus",
-                        "recipes",
-                        "boarding passes",
-                        "where you parked",
-                        "drivers license",
-                        "passport"]
+    let suggestItems = [["Receipts","Make sure your waiter knew that was a 5 and not a 9 on your tip."],
+                        ["Ads","In case you decide later to give that crossfit class a try."],
+                        ["Shopping","Torn on buying a shirt? Infoto it now and sleep on it (a great remedy for buyer's remorse)."],
+                        ["Past Haircuts","Show your barber all of his past work, the good the bad and the ugly."],
+                        ["Gym Classes","Infoto your gym's class schedule."],
+                        ["Recipes","Take that clunky recipe book with you into the grocery store with an infoto."],
+                        ["Travel Info","Don't rely on an internet connection to pull up your boarding pass."],
+                        ["Where you Parked","A quick infoto of Level G-7 will save you that hour of the dreadful car search."],
+                        ["General Info","Need to know your drivers license or passport number and don't have them on hand? Infoto them once and your good to go."],
+                        ["Come up with your own!","Once you form a habit of using infotos to capture useful info, you'll discover all kinds of ways to use them."]]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,7 +41,11 @@ class SuggestTVController: UITableViewController {
         let cell = tableView.dequeueReusableCellWithIdentifier("SuggestCell", forIndexPath: indexPath)
 
         // Configure the cell...
-        cell.textLabel?.text = suggestItems[indexPath.row]
+        cell.textLabel?.text = suggestItems[indexPath.row][0]
+        cell.textLabel?.font = UIFont(name: "Chalkboard SE", size:18)
+        cell.detailTextLabel?.lineBreakMode = .ByWordWrapping
+        cell.detailTextLabel?.numberOfLines = 3
+        cell.detailTextLabel?.text = suggestItems[indexPath.row][1]
         return cell
     }
 

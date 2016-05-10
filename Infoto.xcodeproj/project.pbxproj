@@ -122,7 +122,6 @@
 				92DB526E1CD477B900D29FCB /* NewFolderViewController.swift */,
 				92DB52611CD477B900D29FCB /* DisplayViewController.swift */,
 				92DB52701CD477B900D29FCB /* SuggestTVController.swift */,
-				92DB52711CD477B900D29FCB /* Infoto.xcdatamodeld */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -134,6 +133,7 @@
 				92DB52631CD477B900D29FCB /* Files.swift */,
 				92DB52671CD477B900D29FCB /* Folders+CoreDataProperties.swift */,
 				92DB52641CD477B900D29FCB /* Files+CoreDataProperties.swift */,
+				92DB52711CD477B900D29FCB /* Infoto.xcdatamodeld */,
 			);
 			name = Model;
 			sourceTree = "<group>";

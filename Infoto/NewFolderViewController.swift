@@ -19,6 +19,7 @@ class NewFolderViewController: BaseVC, UITextFieldDelegate, UIPickerViewDataSour
     var editMode = false
     var editFolder : Folders!
     var dtdArray = ["Never"]
+    var orderPosition:Int = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -111,7 +112,7 @@ class NewFolderViewController: BaseVC, UITextFieldDelegate, UIPickerViewDataSour
                 } else {
                     
                     //// Folder name is valid, save folder and pop view controller
-                    self.createFolder(name, isLocked: isLocked, daysTilDelete: daysTilDelete)
+                    self.createFolder(name, isLocked: isLocked, daysTilDelete: daysTilDelete, orderPosition: orderPosition)
                     self.navigationController?.popViewControllerAnimated(true)
                 }
             } catch {

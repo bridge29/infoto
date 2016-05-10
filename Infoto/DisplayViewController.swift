@@ -199,12 +199,15 @@ class DisplayViewController: BaseVC, UITabBarDelegate, UIScrollViewDelegate, MFM
                 
                 if let image = UIImage(contentsOfFile: getFilePath(file.fileName!)){
                     UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
-                    showPopupMessage("Photo saved to camera roll!")
+                    showPopupMessage("Photo saved to camera roll")
                 }
                 
             } else if file.fileType == "Video" {
                 
-
+                if let _ = NSData(contentsOfURL: NSURL(fileURLWithPath: getFilePath(file.fileName!))) {
+                    UISaveVideoAtPathToSavedPhotosAlbum(getFilePath(file.fileName!),nil,nil,nil)
+                    showPopupMessage("Video saved to camera roll")
+                }
             }
         case 4:
             //// Show Title and Description
