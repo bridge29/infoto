@@ -38,7 +38,7 @@
 		561180E6D77A717C02B0CFE7 /* Pods_Infoto.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Infoto.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5968B683B141F9622E93FA6C /* Pods-Infoto.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Infoto.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Infoto/Pods-Infoto.debug.xcconfig"; sourceTree = "<group>"; };
 		92012AFF1CDDC93C0017D954 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
-		92DB52451CD476DD00D29FCB /* Infoto.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Infoto.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		92DB52451CD476DD00D29FCB /* Infotos.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Infotos.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		92DB52481CD476DF00D29FCB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		92DB52521CD476DF00D29FCB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		92DB52551CD476DF00D29FCB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -90,7 +90,7 @@
 		92DB52461CD476DD00D29FCB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				92DB52451CD476DD00D29FCB /* Infoto.app */,
+				92DB52451CD476DD00D29FCB /* Infotos.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -187,7 +187,7 @@
 			);
 			name = Infoto;
 			productName = Infoto;
-			productReference = 92DB52451CD476DD00D29FCB /* Infoto.app */;
+			productReference = 92DB52451CD476DD00D29FCB /* Infotos.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -433,7 +433,7 @@
 				INFOPLIST_FILE = Infoto/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tohism.Infotos;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Infotos;
 				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
@@ -448,7 +448,7 @@
 				INFOPLIST_FILE = Infoto/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tohism.Infotos;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Infotos;
 				PROVISIONING_PROFILE = "";
 			};
 			name = Release;

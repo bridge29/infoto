@@ -188,6 +188,10 @@ class FileTVController: BaseTVC, NSFetchedResultsControllerDelegate, EasyTipView
         dateTap.numberOfTapsRequired = 1
         cell.dateLabel.addGestureRecognizer(dateTap)
         
+        let dataTappedOnceGest = UITapGestureRecognizer(target: self, action: #selector(FileTVController.dataTappedTwice(_:)))
+        dataTappedOnceGest.numberOfTapsRequired = 2
+        cell.dataScrollView.addGestureRecognizer(dataTappedOnceGest)
+        
         //// Remove and re-add width constraint from dataScrollView based in currView
         for c in cell.constraints{
             if (c.identifier == "dataScrollViewWidth"){
@@ -263,7 +267,6 @@ class FileTVController: BaseTVC, NSFetchedResultsControllerDelegate, EasyTipView
                 avPlayerVC.view.frame = CGRectMake(0,0,cell.dataScrollView.bounds.width, cell.dataScrollView.bounds.height)
                 avPlayerVC.view.tag   = 20
                 cell.dataScrollView.addSubview(avPlayerVC.view)
-
             }
         }
         
@@ -383,6 +386,15 @@ class FileTVController: BaseTVC, NSFetchedResultsControllerDelegate, EasyTipView
         NSUserDefaults.standardUserDefaults().setObject(useDateFormat, forKey: "\(self.folder.name)_useDateFormat")
         NSUserDefaults.standardUserDefaults().synchronize()
         self.tableView.reloadData()
+    }
+    
+    func dataTappedTwice(gesture: UITapGestureRecognizer){
+        if let cell = gesture.view?.superview?.superview as? FileCell {
+            let indexPath = self.tableView.indexPathForCell(cell)
+            self.performSegueWithIdentifier("file2display", sender: indexPath)
+        } else {
+            snp()
+        }
     }
     
     func getFileFetchRequest() -> NSFetchRequest {

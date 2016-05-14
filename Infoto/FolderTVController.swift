@@ -89,7 +89,7 @@ class FolderTVController: BaseTVC, NSFetchedResultsControllerDelegate, EasyTipVi
         if rateNumber > 0 {
             rateNumber = rateNumber + 1
         }
-        
+
         ///// DEBUGGING
         //printFileContents()
     }
@@ -97,7 +97,7 @@ class FolderTVController: BaseTVC, NSFetchedResultsControllerDelegate, EasyTipVi
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         tableView.reloadData()
-        
+
         if sortFolderMode {
             self.editing = true
             self.navigationItem.leftBarButtonItem?.title = "Done"
@@ -107,8 +107,14 @@ class FolderTVController: BaseTVC, NSFetchedResultsControllerDelegate, EasyTipVi
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        for folder in fetchedResultsController.fetchedObjects as! [Folders]{
-            self.deleteTempFiles(folder)
+        
+        if let folders = fetchedResultsController.fetchedObjects as? [Folders] {
+            if folders.count == 0 {
+                self.showPopupMessage("No folders. Tap + to create one", remove:false)
+            }
+            for folder in folders{
+                self.deleteTempFiles(folder)
+            }
         }
         
         if rateNumber > MAX_RATE_HITS {
@@ -203,9 +209,9 @@ class FolderTVController: BaseTVC, NSFetchedResultsControllerDelegate, EasyTipVi
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         if let objects = fetchedResultsController.fetchedObjects {
-            return max(1,objects.count)
+            return objects.count
         }
-        return 1
+        return 0
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -378,7 +384,6 @@ class FolderTVController: BaseTVC, NSFetchedResultsControllerDelegate, EasyTipVi
             for file in fetchResults {
                 // must also delete the file itself 
                 self.deleteFile(file)
-                
             }
         } catch {
             fatalError("Failed fetch request: \(error)")
