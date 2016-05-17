@@ -28,7 +28,7 @@ func plt(){
 }
 
 func snp(msg:String = ""){
-    print("SHOULD NOT PRINT " + msg)
+    print("SHOULD NOT PRINT: \(msg)")
 }
 
 func notifyAlert(target:UIViewController, title:String, message:String) {

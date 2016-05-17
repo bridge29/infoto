@@ -12,7 +12,7 @@ import AVKit
 import AVFoundation
 import EasyTipView
 
-class FileTVController: BaseTVC, NSFetchedResultsControllerDelegate, EasyTipViewDelegate {
+class FileTVController: BaseTVC, NSFetchedResultsControllerDelegate, EasyTipViewDelegate, UIGestureRecognizerDelegate {
     
     var folder        : Folders!
     var currView      : FilesView!
@@ -96,47 +96,38 @@ class FileTVController: BaseTVC, NSFetchedResultsControllerDelegate, EasyTipView
                 case "file_1":
                     EasyTipView.show(forView: cell1,
                         withinSuperview: self.tableView,
-                        text: "Every file contains a title, date, description and the photo/video.",
+                        text: "Here are your infotos in the\n\"\(self.folder.name!)\" folder",
                         preferences: prefs,
                         delegate: self)
                     
                 case "file_2":
-                    EasyTipView.show(forView: cell1.dateLabel,
+                    EasyTipView.show(forView: cell1.dataScrollView,
                         withinSuperview: self.tableView,
-                        text: "Tap on date to change its format.",
+                        text: "Pinch or tap content to zoom.\nPress and hold for more options.",
                         preferences: prefs,
                         delegate: self)
                     
                 case "file_3":
-                    EasyTipView.show(forView: cell1.dataScrollView,
-                        withinSuperview: self.tableView,
-                        text: "You can zoom in on photos by double tapping or pinching.",
+                    EasyTipView.show(forItem: self.navigationItem.rightBarButtonItems![2],
+                        withinSuperview: self.navigationController!.view,
+                        text: "Changes the sorting.",
                         preferences: prefs,
                         delegate: self)
                     
                 case "file_4":
-                    EasyTipView.show(forItem: self.navigationItem.rightBarButtonItems![2],
-                        withinSuperview: self.navigationController!.view,
-                        text: "Change sorting",
-                        preferences: prefs,
-                        delegate: self)
-                    
-                case "file_5":
                     EasyTipView.show(forItem: self.navigationItem.rightBarButtonItems![1],
                         withinSuperview: self.navigationController!.view,
-                        text: "Change the view size.",
+                        text: "Changes the view size.",
                         preferences: prefs,
                         delegate: self)
-                    
-                case "file_6":
-                    EasyTipView.show(forView: cell1,
+                case "file_5":
+                    EasyTipView.show(forView: cell1.dateLabel,
                         withinSuperview: self.tableView,
-                        text: "Tap the cell to view the file.",
+                        text: "Tap on the date to\nchange the format.",
                         preferences: prefs,
                         delegate: self)
-                    
                 default:
-                    snp()
+                    snp("no file tip found for \(tip)")
                     return
                 }
                 
@@ -151,7 +142,28 @@ class FileTVController: BaseTVC, NSFetchedResultsControllerDelegate, EasyTipView
     func easyTipViewDidDismiss(tipView : EasyTipView){
         tipIsOpen = false
         showTips()
+        
+        if (!tipIsOpen && activeTips.count == 1) {
+            showPopupMessage("No More Tips\nYou're ready to rock!")
+            activeTips = []
+        }
     }
+    
+//        if !tipIsOpen {
+//            
+//            if let objects = fetchedResultsController.fetchedObjects {
+//                if objects.count >= 1{
+//                    self.showPopupMessage("Double Tap the photo to view it...", remove:false)
+//                    _ = NSTimer.scheduledTimerWithTimeInterval(2.0, target: self, selector: #selector(self.goToDisplayFromTips), userInfo: nil, repeats: false)
+//                }
+//            }
+//        }
+//    }
+    
+//    func goToDisplayFromTips() {        
+//        let cell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 0)) as! FolderTVCell
+//        performSegueWithIdentifier("file2display", sender: cell)
+//    }
     
     // MARK: - Table view data source
     
@@ -183,14 +195,10 @@ class FileTVController: BaseTVC, NSFetchedResultsControllerDelegate, EasyTipView
         let date = (sortDate == "create_date") ? cell.file.create_date : cell.file.edit_date
         cell.dateLabel.text = getFileDateLabelText(date, useDateFormat: useDateFormat)
         
-        //// Add recognizer to dateLabel
+        //// Added recognizer to dateLabel
         let dateTap = UITapGestureRecognizer(target: self, action: #selector(FileTVController.dateLabelTapped))
         dateTap.numberOfTapsRequired = 1
         cell.dateLabel.addGestureRecognizer(dateTap)
-        
-        let dataTappedOnceGest = UITapGestureRecognizer(target: self, action: #selector(FileTVController.dataTappedTwice(_:)))
-        dataTappedOnceGest.numberOfTapsRequired = 2
-        cell.dataScrollView.addGestureRecognizer(dataTappedOnceGest)
         
         //// Remove and re-add width constraint from dataScrollView based in currView
         for c in cell.constraints{
@@ -255,6 +263,9 @@ class FileTVController: BaseTVC, NSFetchedResultsControllerDelegate, EasyTipView
                     cell.configureImageView(image, currView:currView)
                 }
                 
+                let dsvTapGest = UILongPressGestureRecognizer(target: self, action: #selector(FileTVController.dsvTapped(_:)))
+                cell.dataScrollView.addGestureRecognizer(dsvTapGest)
+                
             } else {
                 
                 cell.dataScrollView.userInteractionEnabled = true
@@ -266,6 +277,10 @@ class FileTVController: BaseTVC, NSFetchedResultsControllerDelegate, EasyTipView
                 self.addChildViewController(avPlayerVC)
                 avPlayerVC.view.frame = CGRectMake(0,0,cell.dataScrollView.bounds.width, cell.dataScrollView.bounds.height)
                 avPlayerVC.view.tag   = 20
+                
+                let avTapGest = UILongPressGestureRecognizer(target: self, action: #selector(FileTVController.dsvTapped(_:)))
+                avTapGest.delegate = self
+                avPlayerVC.view.addGestureRecognizer(avTapGest)
                 cell.dataScrollView.addSubview(avPlayerVC.view)
             }
         }
@@ -273,9 +288,17 @@ class FileTVController: BaseTVC, NSFetchedResultsControllerDelegate, EasyTipView
         return cell
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        self.performSegueWithIdentifier("file2display", sender: indexPath)
+    //func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldReceiveTouch touch: UITouch) -> Bool {
+    //    return true
+    //}
+    
+    func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
     }
+    
+//    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+//        self.performSegueWithIdentifier("file2display", sender: indexPath)
+//    }
     
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
         // the cells you would like the actions to appear needs to be editable
@@ -374,9 +397,7 @@ class FileTVController: BaseTVC, NSFetchedResultsControllerDelegate, EasyTipView
     }
     
     @IBAction func newFile(sender: AnyObject) {
-        
         presentNewFileOptions("file")
-        
     }
     
     // MARK: - Other Methods
@@ -388,12 +409,17 @@ class FileTVController: BaseTVC, NSFetchedResultsControllerDelegate, EasyTipView
         self.tableView.reloadData()
     }
     
-    func dataTappedTwice(gesture: UITapGestureRecognizer){
-        if let cell = gesture.view?.superview?.superview as? FileCell {
-            let indexPath = self.tableView.indexPathForCell(cell)
-            self.performSegueWithIdentifier("file2display", sender: indexPath)
-        } else {
-            snp()
+    func dsvTapped(gesture: UITapGestureRecognizer){
+        if gesture.state == UIGestureRecognizerState.Began {
+            if let cell = gesture.view?.superview?.superview as? FileCell {
+                let indexPath = self.tableView.indexPathForCell(cell)
+                self.performSegueWithIdentifier("file2display", sender: indexPath)
+            } else if let cell = gesture.view?.superview?.superview?.superview as? FileCell {
+                let indexPath = self.tableView.indexPathForCell(cell)
+                self.performSegueWithIdentifier("file2display", sender: indexPath)
+            } else {
+                snp()
+            }
         }
     }
     

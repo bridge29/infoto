@@ -38,7 +38,8 @@ class BaseVC: UIViewController {
                 return
             }
         } catch {
-            fatalError("Failed fetch request: \(error)")
+            snp()
+            //fatalError("Failed fetch request: \(error)")
         }
         
         let newFolder = NSEntityDescription.insertNewObjectForEntityForName("Folders", inManagedObjectContext: self.moc)
@@ -166,11 +167,14 @@ class BaseTVC: UITableViewController {
     func purchaseProduct(){
         SwiftyStoreKit.purchaseProduct(IAP_ID) { result in
             switch result {
-                case .Success(let productId):
-                    print("Purchase Success: \(productId)")
+                case .Success(_):
+                    ///print("Purchase Success: \(productId)")
                     maxFileCount = 0
+                    notifyAlert(self, title: "Yay!", message: "You can no take as many infotos as you want. Go to town!")
                 case .Error(let error):
-                    print("Purchase Failed: \(error)")
+                    print(error)
+                    //notifyAlert(self, title: "Uh Oh", message: "Something went wrong with your purchase. If you have been charged and do not have unlimited infotos please contact support.")
+                    ///print("Purchase Failed: \(error)")
             }
         }
     }
@@ -202,7 +206,7 @@ class BaseTVC: UITableViewController {
             return
         }
         
-        let ac = UIAlertController(title: "Create New File", message: nil, preferredStyle: .ActionSheet)
+        let ac = UIAlertController(title: "New Infoto", message: nil, preferredStyle: .ActionSheet)
         
         for alertOption in ["Take Photo","Take Video","Choose Photo","Choose Video"] {
             if senderName == "folder"{
@@ -229,7 +233,7 @@ class BaseTVC: UITableViewController {
         let heightSize  = CGFloat((Double(message.characters.count) / 50.0) * 30.0)
         let mainView    = self.view.superview!
         let labelWidth  = mainView.bounds.width * widthMult
-        let label = UILabel(frame: CGRect(x: (mainView.bounds.width - labelWidth)/2, y: (mainView.bounds.height - heightSize)/2, width: labelWidth, height: 60 + heightSize))
+        let label = UILabel(frame: CGRect(x: (mainView.bounds.width - labelWidth)/2, y: (mainView.bounds.height - heightSize)/4, width: labelWidth, height: 60 + heightSize))
         label.text               = message
         label.tag                = 101
         label.textColor          = UIColor.whiteColor()
@@ -239,6 +243,7 @@ class BaseTVC: UITableViewController {
         label.numberOfLines      = 20
         label.minimumScaleFactor = 0.5
         label.adjustsFontSizeToFitWidth = true
+        label.font = UIFont(name: "Chalkboard SE", size:12)
         //label.sizeToFit()
         label.font               = UIFont(name: "Verdana", size:15)
         
@@ -283,7 +288,8 @@ class BaseTVC: UITableViewController {
             do {
                 try NSFileManager.defaultManager().removeItemAtPath(getFilePath(fn))
             } catch {
-                fatalError("Failed to remove file in Documents Directory: \(error)")
+                snp()
+                //fatalError("Failed to remove file in Documents Directory: \(error)")
             }
         }
         
@@ -306,7 +312,8 @@ class BaseTVC: UITableViewController {
                 }
                 
             } catch {
-                fatalError("Failed fetch request: \(error)")
+                snp()
+                //fatalError("Failed fetch request: \(error)")
             }
         }
     }
@@ -319,11 +326,12 @@ class BaseTVC: UITableViewController {
         do {
             let fetchResults = try self.moc.executeFetchRequest(fetchRequest)
             if fetchResults.count > 0 {
-                print("\(name) exists!")
+                //print("\(name) exists!")
                 return
             }
         } catch {
-            fatalError("Failed fetch request: \(error)")
+            snp()
+            //fatalError("Failed fetch request: \(error)")
         }
         
         let newFolder = NSEntityDescription.insertNewObjectForEntityForName("Folders", inManagedObjectContext: self.moc)

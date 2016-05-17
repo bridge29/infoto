@@ -53,32 +53,29 @@ class FolderTVController: BaseTVC, NSFetchedResultsControllerDelegate, EasyTipVi
         if (NSUserDefaults.standardUserDefaults().valueForKey("v1.0") == nil) {
             
             //// CREATE FOLDERS FOR FIRST TIME USERS
+            //, ("Recipes",false,0), ("Haircuts",false,0), ("Passwords",true,0), ("Receipts",false,0)
             for (orderPosition,(name, isLocked, daysTilDelete)) in [("Temporary",false,7), ("Private",true,0), ("Misc",false,0)].enumerate() {
                 self.createFolder(name, isLocked: isLocked, daysTilDelete:daysTilDelete, orderPosition:orderPosition)
             }
             
             //// CREATE SAMPLE FILES FOR FIRST TIME USERS
-            let fileName1 = "\(Int(NSDate().timeIntervalSince1970)).jpg"
-            UIImageJPEGRepresentation(UIImage(named: "camera_folder")!,1.0)!.writeToFile(getFilePath(fileName1), atomically: true)
-            let newFile1 = NSEntityDescription.insertNewObjectForEntityForName("Files", inManagedObjectContext: self.moc)
-            newFile1.setValue("Passport Info", forKey: "title")
-            newFile1.setValue("Key Details:\nPassport #:1234567\nIssued:10/10/13\nExpires:10/10/23", forKey: "desc")
-            newFile1.setValue(NSDate(), forKey: "create_date")
-            newFile1.setValue(NSDate(), forKey: "edit_date")
-            newFile1.setValue(fileName1, forKey: "fileName")
-            newFile1.setValue("Photo", forKey: "fileType")
-            newFile1.setValue(fetchedResultsController.fetchedObjects?.last, forKey: "whichFolder")
+            for (secAdd, (infotoTitle, fileName, desc)) in [
+                    ("Recipe","recipe","Bring that heavy cookbook with you to the grocery store!"),
+                    ("Gym Sched","gym_sched","Stop re-googling your gym schedule every day."),
+                    ("Reciept","receipt","Make sure your receipts match your credit card statements.")].enumerate() {
+                let secFileName = "\(Int(NSDate().timeIntervalSince1970) + secAdd).jpg"
+                UIImageJPEGRepresentation(UIImage(named: "example_\(fileName)")!,1.0)!.writeToFile(getFilePath(secFileName), atomically: true)
+                let newFile = NSEntityDescription.insertNewObjectForEntityForName("Files", inManagedObjectContext: self.moc)
+                newFile.setValue(infotoTitle, forKey: "title")
+                newFile.setValue(desc, forKey: "desc")
+                newFile.setValue(NSDate(), forKey: "create_date")
+                newFile.setValue(NSDate(), forKey: "edit_date")
+                newFile.setValue(secFileName, forKey: "fileName")
+                newFile.setValue("Photo", forKey: "fileType")
+                newFile.setValue(fetchedResultsController.fetchedObjects![2], forKey: "whichFolder")
+                //newFile.setValue(fetchedResultsController.fetchedObjects?.last, forKey: "whichFolder")
+            }
             
-            let fileName2 = "\(Int(NSDate().timeIntervalSince1970) + 1).jpg"
-            UIImageJPEGRepresentation(UIImage(named: "infoto_launch")!,1.0)!.writeToFile(getFilePath(fileName2), atomically: true)
-            let newFile2 = NSEntityDescription.insertNewObjectForEntityForName("Files", inManagedObjectContext: self.moc)
-            newFile2.setValue("Passport Info", forKey: "title")
-            newFile2.setValue("This is an example file\n\nKey Details:\nPassport #:1234567\nIssued:10/10/13\nExpires:10/10/23", forKey: "desc")
-            newFile2.setValue(NSDate(), forKey: "create_date")
-            newFile2.setValue(NSDate(), forKey: "edit_date")
-            newFile2.setValue(fileName2, forKey: "fileName")
-            newFile2.setValue("Photo", forKey: "fileType")
-            newFile2.setValue(fetchedResultsController.fetchedObjects?.last, forKey: "whichFolder")
             saveContext()
 
             NSUserDefaults.standardUserDefaults().setInteger(1, forKey: "v1.0")
@@ -90,7 +87,7 @@ class FolderTVController: BaseTVC, NSFetchedResultsControllerDelegate, EasyTipVi
             rateNumber = rateNumber + 1
         }
 
-        ///// DEBUGGING
+        //// DEBUGGING
         //printFileContents()
     }
     
@@ -115,18 +112,23 @@ class FolderTVController: BaseTVC, NSFetchedResultsControllerDelegate, EasyTipVi
             for folder in folders{
                 self.deleteTempFiles(folder)
             }
+            
+            ///getIAPInfo()
         }
         
         if rateNumber > MAX_RATE_HITS {
             showRateUs()
         }
         
-        showTips()
-        
-        if activeTips.count == 1 {
+        if (activeTips.contains("folder_1")) {
+            let msg = "Welcome to Infotos!\n\nUse this app to store photos\nand videos of useful information.\nTips will guide you through the app.\nTap this message to dismiss."
+            showPopupMessage(msg, remove:false)
+        } else if activeTips.count == 1 {
             showPopupMessage("No More Tips\nYou're ready to rock!")
             activeTips = []
         }
+        
+        showTips()
         
         /// TESTING: Menu
         //performSegueWithIdentifier("folder2menu", sender: nil)
@@ -149,14 +151,15 @@ class FolderTVController: BaseTVC, NSFetchedResultsControllerDelegate, EasyTipVi
                     case "folder_1":
                         EasyTipView.show(forView: cell2.titleLabel,
                             withinSuperview: self.tableView,
-                            text: "These are your folders that hold your files. Swipe left to edit/delete them.",
+                            text: "Infotos are organized in folders.",
                             preferences: prefs,
                             delegate: self)
                     
                     case "folder_2":
-                        EasyTipView.show(forView: cell2.cameraIMG,
+                        let cell1 = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! FolderTVCell
+                        EasyTipView.show(forView: cell1.cameraIMG,
                             withinSuperview: self.tableView,
-                            text: "Create a file.",
+                            text: "Tap the camera to create\nan infoto.",
                             preferences: prefs,
                             delegate: self)
                     
@@ -165,13 +168,6 @@ class FolderTVController: BaseTVC, NSFetchedResultsControllerDelegate, EasyTipVi
                         EasyTipView.show(forView: cell2.lockIMG,
                             withinSuperview: self.tableView,
                             text: "You can lock folders. Locked folders can only be accessed by Touch ID.",
-                            preferences: prefs,
-                            delegate: self)
-                    
-                    case "folder_4":
-                        EasyTipView.show(forItem: self.navigationItem.rightBarButtonItem!,
-                            withinSuperview: self.navigationController!.view,
-                            text: "Create a new folder",
                             preferences: prefs,
                             delegate: self)
 
@@ -189,6 +185,7 @@ class FolderTVController: BaseTVC, NSFetchedResultsControllerDelegate, EasyTipVi
     func easyTipViewDidDismiss(tipView : EasyTipView){
         tipIsOpen = false
         showTips()
+        
         if !tipIsOpen {
             
             if let objects = fetchedResultsController.fetchedObjects {

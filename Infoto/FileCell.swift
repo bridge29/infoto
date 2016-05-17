@@ -23,13 +23,11 @@ class FileCell: UITableViewCell, UIScrollViewDelegate {
         super.awakeFromNib()
         
         self.contentView.backgroundColor = VC_BG_COLOR
-        
         dataScrollView.delegate = self
         
-        let doubleTapRecognizer = UITapGestureRecognizer(target: self, action: #selector(FileCell.scrollViewDoubleTapped(_:)))
-        doubleTapRecognizer.numberOfTapsRequired    = 1
-        doubleTapRecognizer.numberOfTouchesRequired = 1
-        dataScrollView.addGestureRecognizer(doubleTapRecognizer)
+        let singleTapGest = UITapGestureRecognizer(target: self, action: #selector(FileCell.scrollViewDoubleTapped(_:)))
+        singleTapGest.numberOfTapsRequired = 1
+        dataScrollView.addGestureRecognizer(singleTapGest)
         
         descTextView.scrollEnabled = false
         descTextView.layer.cornerRadius = 10

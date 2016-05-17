@@ -8,13 +8,9 @@
 // TODO:
 // Menu
 // - Create support & feedback page on tohism (form that gets emailed to bridge3@tohism.com)
-// - Complete Upgrade functionality - set maxFiles when upgraded.
-// - Allow double tap to display view for videos. Works for photos.
 // - Remove upgrade in menu list if has upgraded
 // - Add rate us link once we have the link (after 1st submission)
 // - Clean up: Tips/messages
-//             Menu font?
-//
 
 
 
@@ -28,8 +24,8 @@ let PRE_DESC_TEXT  = "Description..."
 let PREMIUM_COST   = "1.99"
 var sortFolderMode = false
 let fileTypes      = ["Photo","Video"] //,"Audio","Text"]
-let fullTipList    = ["folder_1","folder_2","folder_3","folder_4",
-                      "file_1","file_2","file_3","file_4","file_5","file_6", "last"]
+let fullTipList    = ["folder_1","folder_2","folder_3",
+                      "file_1","file_2","file_3","file_4","file_5", "last"]
 let MAX_RATE_HITS   = 20 // Number of hits to wait to pop up rate us message
 let VC_FG_COLOR     = UIColor(red: 102/255, green: 204/255, blue: 255/255, alpha: 1)
 let VC_BG_COLOR     = UIColor(red: 240/255, green: 240/255, blue: 240/255, alpha: 1)

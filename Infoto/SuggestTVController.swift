@@ -14,16 +14,15 @@ class SuggestTVController: UITableViewController {
                         ["Ads","In case you decide later to give that crossfit class a try."],
                         ["Shopping","Torn on buying a shirt? Infoto it now and sleep on it (a great remedy for buyer's remorse)."],
                         ["Past Haircuts","Show your barber all of his past work, the good the bad and the ugly."],
-                        ["Gym Classes","Infoto your gym's class schedule."],
-                        ["Recipes","Take that clunky recipe book with you into the grocery store with an infoto."],
+                        ["Gym Classes","No more re-googling your gym's class scheudule everyday."],
+                        ["Recipes","Take your recipe book with you into the grocery store."],
                         ["Travel Info","Don't rely on an internet connection to pull up your boarding pass."],
-                        ["Where you Parked","A quick infoto of Level G-7 will save you that hour of the dreadful car search."],
-                        ["General Info","Need to know your drivers license or passport number and don't have them on hand? Infoto them once and your good to go."],
-                        ["Come up with your own!","Once you form a habit of using infotos to capture useful info, you'll discover all kinds of ways to use them."]]
+                        ["Where you Parked","A quick infoto of Level G-7 will save you that dreadful car search."],
+                        ["General Info","Have your drivers license or passport info on you at all times."],
+                        ["Come up with your own!","Once you start using infotos to capture useful info, you'll discover all kinds of ways to use them."]]
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         navigationItem.title = "Infoto Suggestions"
     }
 

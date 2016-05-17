@@ -11,17 +11,20 @@ import EasyTipView
 
 class MenuTVController: BaseTVC, EasyTipViewDelegate {
     
-    let menuItems = ["What's an infoto?",
+    var menuItems = ["What's an infoto?",
                      "Sort Folders",
                      "Suggestions",
                      "Important Note!",
                      "Rate Us",
                      "Reset tips",
-                     "Support & Feedback",
-                     "Upgrade: Unlimited infotos for $\(PREMIUM_COST)"]
+                     "Support & Feedback"]
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if maxFileCount > 0 {
+            menuItems.append("Upgrade: Unlimited infotos for $\(PREMIUM_COST)")
+        }
         
         //self.view.backgroundColor = VC_BG_COLOR
         navigationItem.title = "Menu"
