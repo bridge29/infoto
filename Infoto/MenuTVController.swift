@@ -15,15 +15,16 @@ class MenuTVController: BaseTVC, EasyTipViewDelegate {
                      "Sort Folders",
                      "Suggestions",
                      "Important Note!",
-                     "Rate Us",
                      "Reset tips",
-                     "Support & Feedback"]
+                     "Support & Feedback",
+                     "Rate Us"]
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
         if maxFileCount > 0 {
-            menuItems.append("Upgrade: Unlimited infotos for $\(PREMIUM_COST)")
+            menuItems.append("Upgrade to Unlimited infotos")
         }
         
         //self.view.backgroundColor = VC_BG_COLOR
@@ -52,7 +53,7 @@ class MenuTVController: BaseTVC, EasyTipViewDelegate {
 
         // Configure the cell...
         cell.textLabel?.text = menuItems[indexPath.row]
-        
+        cell.textLabel?.font = UIFont(name: "Chalkboard SE", size:20)
         return cell
     }
     
@@ -63,37 +64,39 @@ class MenuTVController: BaseTVC, EasyTipViewDelegate {
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         switch (indexPath.row){
         case 0:
-            let msgStr = "Infotos are photos and videos used for storing information. Infotos are awesome but people hesitate to take them. After all who wants to litter their camera roll with tons of infotos just to spend time digging for them when they're needed? This app solves both those problems by housing all of your infotos for you!"
+            let msgStr = "Infotos are photos and videos used for storing information. This app lets you easily take, store, and organize all the infotos you can think of without littering your cameara roll."
             showPopupMessage(msgStr, widthMult:0.9, heightMult:0.4, remove:false)
-        case 5:
+        case 1:
+            sortFolderMode = true
+            self.navigationController?.popViewControllerAnimated(true)
+        case 2:
+            performSegueWithIdentifier("menu2suggest", sender: indexPath)
+        case 3:
+            showPopupMessage("All infotos are only stored on the phone (it is not synced anywhere else). The reason is you'll find most content will only be needed in the near future and we do not want to litter your icloud with them.", widthMult:0.9, heightMult:0.4, remove:false)
+        case 4:
             self.removePopup()
             
             activeTips = fullTipList
             
             if !tipIsOpen {
                 tipIsOpen = true
-            
+                
                 guard let cell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 5, inSection: 0)) as? MenuCell else {
                     break
                 }
                 let prefs = getTipPreferences()
                 EasyTipView.show(forView: cell,
-                         withinSuperview: self.tableView,
-                         text: "Popup tips will guide you through the app. Tap them to dismiss.",
-                         preferences: prefs,
-                         delegate: self)
+                                 withinSuperview: self.tableView,
+                                 text: "Popup tips will guide you through the app. Tap them to dismiss.",
+                                 preferences: prefs,
+                                 delegate: self)
             }
-            
-        case 2:
-            performSegueWithIdentifier("menu2suggest", sender: indexPath)
-        case 3:
-            showPopupMessage("Every day is a cloudless day here. All infotos are only stored on the phone and not synced to any clouds.", widthMult:0.9, heightMult:0.4, remove:false)
-            break
-        case 1:
-            sortFolderMode = true
-            self.navigationController?.popViewControllerAnimated(true)
-        case 6:
+        case 5:
             UIApplication.sharedApplication().openURL(NSURL(string:"http://tohism.com/infotos-app")!)
+            break
+        case 6:
+            rateNumber = 0
+            //UIApplication.sharedApplication().openURL(NSURL(string : "LINK_GOES_HERE")!)
             break
         case 7:
             self.purchaseProduct()

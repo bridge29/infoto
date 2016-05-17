@@ -60,9 +60,9 @@ class FolderTVController: BaseTVC, NSFetchedResultsControllerDelegate, EasyTipVi
             
             //// CREATE SAMPLE FILES FOR FIRST TIME USERS
             for (secAdd, (infotoTitle, fileName, desc)) in [
-                    ("Recipe","recipe","Bring that heavy cookbook with you to the grocery store!"),
-                    ("Gym Sched","gym_sched","Stop re-googling your gym schedule every day."),
-                    ("Reciept","receipt","Make sure your receipts match your credit card statements.")].enumerate() {
+                    ("Ex: Recipe","recipe","Bring that heavy cookbook with you to the grocery store!"),
+                    ("Ex: Gym Sched","gym_sched","Stop re-googling your gym schedule every day."),
+                    ("Ex: Reciept","receipt","Make sure your receipts match your credit card statements.")].enumerate() {
                 let secFileName = "\(Int(NSDate().timeIntervalSince1970) + secAdd).jpg"
                 UIImageJPEGRepresentation(UIImage(named: "example_\(fileName)")!,1.0)!.writeToFile(getFilePath(secFileName), atomically: true)
                 let newFile = NSEntityDescription.insertNewObjectForEntityForName("Files", inManagedObjectContext: self.moc)

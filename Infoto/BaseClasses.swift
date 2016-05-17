@@ -171,8 +171,8 @@ class BaseTVC: UITableViewController {
                     ///print("Purchase Success: \(productId)")
                     maxFileCount = 0
                     notifyAlert(self, title: "Yay!", message: "You can no take as many infotos as you want. Go to town!")
-                case .Error(let error):
-                    print(error)
+                case .Error(_):
+                    break
                     //notifyAlert(self, title: "Uh Oh", message: "Something went wrong with your purchase. If you have been charged and do not have unlimited infotos please contact support.")
                     ///print("Purchase Failed: \(error)")
             }
