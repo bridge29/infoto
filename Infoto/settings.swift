@@ -10,7 +10,8 @@
 // - Create support & feedback page on tohism (form that gets emailed to bridge3@tohism.com)
 // - Remove upgrade in menu list if has upgraded
 // - Add rate us link once we have the link (after 1st submission)
-// - Clean up: Tips/messages
+// - make "restore" button in menu no matter what
+//
 
 
 
@@ -147,7 +148,7 @@ func printFiles(){
 func getTipPreferences() -> EasyTipView.Preferences{
     
     var tipPreferences = EasyTipView.Preferences()
-    tipPreferences.drawing.font = UIFont(name: "Futura-Medium", size: 13)!
+    tipPreferences.drawing.font = UIFont(name: "Futura-Medium", size: 17)!
     tipPreferences.drawing.foregroundColor = UIColor.whiteColor()
     tipPreferences.drawing.backgroundColor = UIColor(hue:0.46, saturation:0.99, brightness:0.6, alpha:1)
     tipPreferences.drawing.arrowPosition = EasyTipView.ArrowPosition.Top

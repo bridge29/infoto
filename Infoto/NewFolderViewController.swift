@@ -81,7 +81,7 @@ class NewFolderViewController: BaseVC, UITextFieldDelegate, UIPickerViewDataSour
             case 12:
                 notifyAlert(self, title: "Lock Option", message: "Locked folders can only be accessed using Touch ID. Lock folders for infotos you want to keep private (e.g. passwords).")
             case 13:
-                notifyAlert(self, title: "Days to Delete", message: "Many infotos won't be needed after a few days. You can create temporary folders that will delete them after x-days. We created a Temporary folder for you that will delete infotos after 7 days.")
+                notifyAlert(self, title: "Days to Delete", message: "Many infotos won't be needed after a few days or even hours. You can create temporary folders that will delete them after x-days. The Temporary folder we created for you is set to delete infotos after 7 days.")
             default:
                 break
         }

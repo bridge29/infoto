@@ -14,7 +14,6 @@ class MenuTVController: BaseTVC, EasyTipViewDelegate {
     var menuItems = ["What's an infoto?",
                      "Sort Folders",
                      "Suggestions",
-                     "Important Note!",
                      "Reset tips",
                      "Support & Feedback",
                      "Rate Us"]
@@ -22,9 +21,9 @@ class MenuTVController: BaseTVC, EasyTipViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
         if maxFileCount > 0 {
             menuItems.append("Upgrade to Unlimited infotos")
+            menuItems.append("Restore your in-app purchase")
         }
         
         //self.view.backgroundColor = VC_BG_COLOR
@@ -71,9 +70,9 @@ class MenuTVController: BaseTVC, EasyTipViewDelegate {
             self.navigationController?.popViewControllerAnimated(true)
         case 2:
             performSegueWithIdentifier("menu2suggest", sender: indexPath)
+//        case 3:
+//            showPopupMessage("All infotos are only stored on the phone (it is not synced anywhere else). The reason is you'll find most content will only be needed in the near future and we do not want to litter your icloud with them.", widthMult:0.9, heightMult:0.4, remove:false)
         case 3:
-            showPopupMessage("All infotos are only stored on the phone (it is not synced anywhere else). The reason is you'll find most content will only be needed in the near future and we do not want to litter your icloud with them.", widthMult:0.9, heightMult:0.4, remove:false)
-        case 4:
             self.removePopup()
             
             activeTips = fullTipList
@@ -91,15 +90,17 @@ class MenuTVController: BaseTVC, EasyTipViewDelegate {
                                  preferences: prefs,
                                  delegate: self)
             }
-        case 5:
+        case 4:
             UIApplication.sharedApplication().openURL(NSURL(string:"http://tohism.com/infotos-app")!)
             break
-        case 6:
+        case 5:
             rateNumber = 0
             //UIApplication.sharedApplication().openURL(NSURL(string : "LINK_GOES_HERE")!)
             break
-        case 7:
+        case 6:
             self.purchaseProduct()
+        case 7:
+            self.restorePurcase()
         default:
             snp()
         }

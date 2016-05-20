@@ -79,9 +79,8 @@ class BaseVC: UIViewController {
         label.lineBreakMode      = .ByWordWrapping
         label.numberOfLines      = 20
         label.minimumScaleFactor = 0.5
+        label.font               = UIFont(name: "Futura-Medium", size: 17)
         label.adjustsFontSizeToFitWidth = true
-        //label.sizeToFit()
-        label.font               = UIFont(name: "Verdana", size:15)
         
         let padding = UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15)
         
@@ -179,6 +178,21 @@ class BaseTVC: UITableViewController {
         }
     }
     
+    func restorePurcase(){
+        SwiftyStoreKit.restorePurchases() { results in
+            if results.restoreFailedProducts.count > 0 {
+                print("Did not connect")
+            }else if results.restoredProductIds.count > 0 {
+                maxFileCount = 0
+                notifyAlert(self, title: "Yay", message: "Your in-app purchase of unlimited storage has been restored!")
+                print("Restore Success: \(results.restoredProductIds)")
+            }else {
+                notifyAlert(self, title: "", message: "We cannot find your previous in-app purchase. If you believe you have made this purchase please contact support.")
+                print("Nothing to Restore")
+            }
+        }
+    }
+    
     func segueFile2newFile(action: UIAlertAction!){
         self.performSegueWithIdentifier("file2newFile", sender: action)
     }
@@ -242,10 +256,8 @@ class BaseTVC: UITableViewController {
         label.lineBreakMode      = .ByWordWrapping
         label.numberOfLines      = 20
         label.minimumScaleFactor = 0.5
+        label.font               = UIFont(name: "Futura-Medium", size: 17)
         label.adjustsFontSizeToFitWidth = true
-        label.font = UIFont(name: "Chalkboard SE", size:12)
-        //label.sizeToFit()
-        label.font               = UIFont(name: "Verdana", size:15)
         
         let padding = UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15)
         
@@ -255,7 +267,6 @@ class BaseTVC: UITableViewController {
         wrapperView.backgroundColor    = PU_BG_COLOR
         wrapperView.layer.cornerRadius = 20.0
         wrapperView.clipsToBounds      = true
-        //wrapperView.sizeToFit()
         mainView.addSubview(wrapperView)
         
         label.userInteractionEnabled = true

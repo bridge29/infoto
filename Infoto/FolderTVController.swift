@@ -74,6 +74,13 @@ class FolderTVController: BaseTVC, NSFetchedResultsControllerDelegate, EasyTipVi
                 newFile.setValue("Photo", forKey: "fileType")
                 newFile.setValue(fetchedResultsController.fetchedObjects![2], forKey: "whichFolder")
                 //newFile.setValue(fetchedResultsController.fetchedObjects?.last, forKey: "whichFolder")
+                
+                let url = NSURL.fileURLWithPath(getFilePath(secFileName))
+                do {
+                    try url.setResourceValue(true, forKey: NSURLIsExcludedFromBackupKey)
+                } catch _{
+                    snp("Failed to change file resource value")
+                }
             }
             
             saveContext()
@@ -88,7 +95,9 @@ class FolderTVController: BaseTVC, NSFetchedResultsControllerDelegate, EasyTipVi
         }
 
         //// DEBUGGING
-        //printFileContents()
+        ///printFileContents()
+        ///printFiles()
+        ///self.getIAPInfo()
     }
     
     override func viewWillAppear(animated: Bool) {

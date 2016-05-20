@@ -74,7 +74,7 @@ class FileTVController: BaseTVC, NSFetchedResultsControllerDelegate, EasyTipView
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         if fetchedResultsController.fetchedObjects!.count == 0 {
-            showPopupMessage("No files found.\nTap '+' to add new file.", remove:false)
+            showPopupMessage("No files found.\nTap '+' to create new infoto.", remove:false)
         } else {
             showTips()
         }
@@ -103,7 +103,7 @@ class FileTVController: BaseTVC, NSFetchedResultsControllerDelegate, EasyTipView
                 case "file_2":
                     EasyTipView.show(forView: cell1.dataScrollView,
                         withinSuperview: self.tableView,
-                        text: "Pinch or tap content to zoom.\nPress and hold for more options.",
+                        text: "Pinch or tap content to zoom.\nPress and hold content for more options.",
                         preferences: prefs,
                         delegate: self)
                     

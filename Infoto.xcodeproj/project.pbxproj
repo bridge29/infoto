@@ -434,7 +434,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tohism.Infotos;
 				PRODUCT_NAME = Infotos;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "5c340e31-ef23-47f5-ae4d-cdbd0c1e4707";
 			};
 			name = Debug;
 		};
@@ -443,13 +443,13 @@
 			baseConfigurationReference = 3716341EB62FF19950C47E05 /* Pods-Infoto.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				INFOPLIST_FILE = Infoto/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tohism.Infotos;
 				PRODUCT_NAME = Infotos;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "5c340e31-ef23-47f5-ae4d-cdbd0c1e4707";
 			};
 			name = Release;
 		};
