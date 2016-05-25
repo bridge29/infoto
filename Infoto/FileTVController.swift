@@ -74,7 +74,7 @@ class FileTVController: BaseTVC, NSFetchedResultsControllerDelegate, EasyTipView
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         if fetchedResultsController.fetchedObjects!.count == 0 {
-            showPopupMessage("No files found.\nTap '+' to create new infoto.", remove:false)
+            showPopupMessage("No files found.\nTap + to create new infoto.", remove:false)
         } else {
             showTips()
         }
@@ -96,28 +96,28 @@ class FileTVController: BaseTVC, NSFetchedResultsControllerDelegate, EasyTipView
                 case "file_1":
                     EasyTipView.show(forView: cell1,
                         withinSuperview: self.tableView,
-                        text: "Here are your infotos in the\n\"\(self.folder.name!)\" folder",
+                        text: "Here are your infotos\nin the \"\(self.folder.name!)\" folder",
                         preferences: prefs,
                         delegate: self)
                     
                 case "file_2":
                     EasyTipView.show(forView: cell1.dataScrollView,
                         withinSuperview: self.tableView,
-                        text: "Pinch or tap content to zoom.\nPress and hold content for more options.",
+                        text: "Pinch or tap content\nto zoom.\nPress and hold content\nfor more options.",
                         preferences: prefs,
                         delegate: self)
                     
                 case "file_3":
                     EasyTipView.show(forItem: self.navigationItem.rightBarButtonItems![2],
                         withinSuperview: self.navigationController!.view,
-                        text: "Changes the sorting.",
+                        text: "Change sorting",
                         preferences: prefs,
                         delegate: self)
                     
                 case "file_4":
                     EasyTipView.show(forItem: self.navigationItem.rightBarButtonItems![1],
                         withinSuperview: self.navigationController!.view,
-                        text: "Changes the view size.",
+                        text: "Change view size",
                         preferences: prefs,
                         delegate: self)
                 case "file_5":

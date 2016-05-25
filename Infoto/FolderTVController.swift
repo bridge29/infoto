@@ -53,8 +53,8 @@ class FolderTVController: BaseTVC, NSFetchedResultsControllerDelegate, EasyTipVi
         if (NSUserDefaults.standardUserDefaults().valueForKey("v1.0") == nil) {
             
             //// CREATE FOLDERS FOR FIRST TIME USERS
-            //, ("Recipes",false,0), ("Haircuts",false,0), ("Passwords",true,0), ("Receipts",false,0)
-            for (orderPosition,(name, isLocked, daysTilDelete)) in [("Temporary",false,7), ("Private",true,0), ("Misc",false,0)].enumerate() {
+            
+            for (orderPosition,(name, isLocked, daysTilDelete)) in [("Temporary",false,7), ("Private",true,0), ("Misc",false,0),("Receipts",false,0),("Haircuts",false,0),("Travel Info",false,0)].enumerate() {
                 self.createFolder(name, isLocked: isLocked, daysTilDelete:daysTilDelete, orderPosition:orderPosition)
             }
             
@@ -130,8 +130,8 @@ class FolderTVController: BaseTVC, NSFetchedResultsControllerDelegate, EasyTipVi
         }
         
         if (activeTips.contains("folder_1")) {
-            let msg = "Welcome to Infotos!\n\nUse this app to store photos\nand videos of useful information.\nTips will guide you through the app.\nTap this message to dismiss."
-            showPopupMessage(msg, remove:false)
+            let msg = "Welcome to Infotos!\n\nInfotos are photos and videos taken\nto store useful information.\nINFO + PHOTO = INFOTO!\n(Tap message to dismiss)"
+            showPopupMessage(msg, heightMult:1.3, remove:false)
         } else if activeTips.count == 1 {
             showPopupMessage("No More Tips\nYou're ready to rock!")
             activeTips = []
@@ -160,7 +160,7 @@ class FolderTVController: BaseTVC, NSFetchedResultsControllerDelegate, EasyTipVi
                     case "folder_1":
                         EasyTipView.show(forView: cell2.titleLabel,
                             withinSuperview: self.tableView,
-                            text: "Infotos are organized in folders.",
+                            text: "Infotos are organized in folders. We gave you a few as examples, swipe left to delete them.",
                             preferences: prefs,
                             delegate: self)
                     
@@ -168,15 +168,22 @@ class FolderTVController: BaseTVC, NSFetchedResultsControllerDelegate, EasyTipVi
                         let cell1 = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! FolderTVCell
                         EasyTipView.show(forView: cell1.cameraIMG,
                             withinSuperview: self.tableView,
-                            text: "Tap the camera to create\nan infoto.",
+                            text: "Tap the camera to create\na new infoto.",
                             preferences: prefs,
                             delegate: self)
                     
                     case "folder_3":
-                        //let cell1 = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! FolderTVCell
                         EasyTipView.show(forView: cell2.lockIMG,
                             withinSuperview: self.tableView,
                             text: "You can lock folders. Locked folders can only be accessed by Touch ID.",
+                            preferences: prefs,
+                            delegate: self)
+                    
+                    case "folder_4":
+                        let cell1 = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! FolderTVCell
+                        EasyTipView.show(forView: cell1.titleLabel,
+                            withinSuperview: self.tableView,
+                            text: "Folders with a number indicate infotos will be deleted after that many days.",
                             preferences: prefs,
                             delegate: self)
 
@@ -200,7 +207,7 @@ class FolderTVController: BaseTVC, NSFetchedResultsControllerDelegate, EasyTipVi
             if let objects = fetchedResultsController.fetchedObjects {
                 if objects.count >= 3{
                     self.showPopupMessage("Let's take a look inside a folder...", remove:false)
-                    _ = NSTimer.scheduledTimerWithTimeInterval(2.0, target: self, selector: #selector(self.goToFileFromTips), userInfo: nil, repeats: false)
+                    _ = NSTimer.scheduledTimerWithTimeInterval(1.5, target: self, selector: #selector(self.goToFileFromTips), userInfo: nil, repeats: false)
                 }
             }
         }
@@ -367,7 +374,7 @@ class FolderTVController: BaseTVC, NSFetchedResultsControllerDelegate, EasyTipVi
     func showRateUs() {
         let alert = UIAlertController(title: "Rate Us!", message: "If you like \(APP_NAME), we'd love to hear it. Your rating really helps us get noticed in the App Store. If you hate it then you're in luck, you can skip this ;)", preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: "Rate \(APP_NAME)", style: UIAlertActionStyle.Default, handler: { alertAction in
-            //UIApplication.sharedApplication().openURL(NSURL(string : "LINK_GOES_HERE")!)
+            UIApplication.sharedApplication().openURL(NSURL(string : "http://appsto.re/us/JZfpcb.i")!)
             rateNumber = 0
         }))
         alert.addAction(UIAlertAction(title: "No Thanks", style: UIAlertActionStyle.Default, handler: { alertAction in

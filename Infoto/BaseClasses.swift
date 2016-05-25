@@ -58,7 +58,7 @@ class BaseVC: UIViewController {
         }
     }
     
-    func showPopupMessage(message:String, seconds:NSTimeInterval = 2.5, widthMult:CGFloat = 0.9, heightMult:CGFloat = 0.2, remove:Bool = true){
+    func showPopupMessage(message:String, seconds:NSTimeInterval = 2.5, widthMult:CGFloat = 0.9, heightMult:CGFloat = 1.0, remove:Bool = true){
         if let superview = self.view.superview {
             while let view = superview.viewWithTag(101) {
                 view.removeFromSuperview()
@@ -68,12 +68,13 @@ class BaseVC: UIViewController {
             return
         }
         
-        let heightSize  = CGFloat((Double(message.characters.count) / 50.0) * 30.0)
+        let heightSize  = CGFloat((Double(message.characters.count) / 50.0) * 30.0) * heightMult
         let mainView    = self.view.superview!
         let labelWidth  = mainView.bounds.width * widthMult
         let label = UILabel(frame: CGRect(x: (mainView.bounds.width - labelWidth)/2, y: (mainView.bounds.height - heightSize)/2, width: labelWidth, height: 60 + heightSize))
         label.text               = message
         label.tag                = 101
+        label.textColor          = UIColor.whiteColor()
         label.backgroundColor    = PU_BG_COLOR
         label.textAlignment      = .Center
         label.lineBreakMode      = .ByWordWrapping
@@ -169,11 +170,11 @@ class BaseTVC: UITableViewController {
                 case .Success(_):
                     ///print("Purchase Success: \(productId)")
                     maxFileCount = 0
-                    notifyAlert(self, title: "Yay!", message: "You can no take as many infotos as you want. Go to town!")
+                    //notifyAlert(self, title: "Yay!", message: "You can no take as many infotos as you want. Go to town!")
                 case .Error(_):
                     break
-                    //notifyAlert(self, title: "Uh Oh", message: "Something went wrong with your purchase. If you have been charged and do not have unlimited infotos please contact support.")
                     ///print("Purchase Failed: \(error)")
+                    //notifyAlert(self, title: "Uh Oh", message: "Something went wrong with your purchase. If you have been charged and do not have unlimited infotos please contact support.")
             }
         }
     }
@@ -234,7 +235,7 @@ class BaseTVC: UITableViewController {
         presentViewController(ac, animated: true, completion: nil)
     }
     
-    func showPopupMessage(message:String, seconds:NSTimeInterval = 2.5, widthMult:CGFloat = 0.9, heightMult:CGFloat = 0.2, remove:Bool = true){
+    func showPopupMessage(message:String, seconds:NSTimeInterval = 2.5, widthMult:CGFloat = 0.9, heightMult:CGFloat = 1.0, remove:Bool = true){
         if let superview = self.view.superview {
             while let view = superview.viewWithTag(101) {
                 view.removeFromSuperview()
@@ -244,7 +245,7 @@ class BaseTVC: UITableViewController {
             return
         }
         
-        let heightSize  = CGFloat((Double(message.characters.count) / 50.0) * 30.0)
+        let heightSize  = CGFloat((Double(message.characters.count) / 50.0) * 30.0) * heightMult
         let mainView    = self.view.superview!
         let labelWidth  = mainView.bounds.width * widthMult
         let label = UILabel(frame: CGRect(x: (mainView.bounds.width - labelWidth)/2, y: (mainView.bounds.height - heightSize)/4, width: labelWidth, height: 60 + heightSize))

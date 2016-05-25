@@ -22,6 +22,8 @@ class NewFileViewController: BaseVC, UINavigationControllerDelegate, UIImagePick
     @IBOutlet weak var descTextView: UITextView!
     @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var dataView: UIView!
+    @IBOutlet weak var cameraRollButton: UIButton!
+    
     var folder      : Folders!
     var folders     : [Folders] = []
     var fileType    : String!
@@ -37,6 +39,8 @@ class NewFileViewController: BaseVC, UINavigationControllerDelegate, UIImagePick
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.view.backgroundColor = VC_BG_COLOR
+        
         let firstWordOfTitle = (editMode) ? "Edit" : "New"
         self.navigationItem.title = "\(firstWordOfTitle) \(fileType)"
         self.titleTextField.text  = (editMode) ? self.editFile.title : PRE_TITLE_TEXT
@@ -45,11 +49,13 @@ class NewFileViewController: BaseVC, UINavigationControllerDelegate, UIImagePick
         self.descTextView.delegate   = self
         self.folderView.delegate     = self
         
+        
         /// Setup for photo or video
         switch (fileType){
             case "Photo":
                 self.imageView.contentMode = UIViewContentMode.ScaleAspectFit
             case "Video":
+                self.cameraRollButton.setTitle("Videos", forState: UIControlState.Normal)
                 self.imageView.hidden = true
                 self.avPlayerVC       = AVPlayerViewController()
                 self.addChildViewController(self.avPlayerVC)
@@ -261,7 +267,17 @@ class NewFileViewController: BaseVC, UINavigationControllerDelegate, UIImagePick
         if (up && isTextMode) { return }
         isTextMode = up
         
-        let movement:CGFloat = (up ? -200 : 200)
+        var upNum:CGFloat
+        switch (self.view.bounds.height) {
+            case 0..<300.0:
+                upNum = 400
+            case 300..<500:
+                upNum = 300
+            default:
+                upNum = 250
+        }
+        
+        let movement:CGFloat = (up ? -upNum : upNum)
         
         UIView.animateWithDuration(0.3, animations: {
             self.view.frame = CGRectOffset(self.view.frame, 0, movement)

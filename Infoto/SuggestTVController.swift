@@ -15,7 +15,7 @@ class SuggestTVController: UITableViewController {
                         ["Shopping","Torn on buying a shirt? Infoto it now and sleep on it (a great remedy for buyer's remorse)."],
                         ["Past Haircuts","Show your barber all of his past work, the good the bad and the ugly."],
                         ["Gym Classes","No more re-googling your gym's class scheudule everyday."],
-                        ["Recipes","Take your recipe book with you into the grocery store."],
+                        ["Recipes","Take your cookbook with you to the grocery store."],
                         ["Travel Info","Don't rely on an internet connection to pull up your boarding pass."],
                         ["Where you Parked","A quick infoto of Level G-7 will save you that dreadful car search."],
                         ["General Info","Have your drivers license or passport info on you at all times."],

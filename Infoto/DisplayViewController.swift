@@ -32,8 +32,7 @@ class DisplayViewController: BaseVC, UITabBarDelegate, UIScrollViewDelegate, MFM
         dataScrollView.delegate = self
         
         let doubleTapRecognizer = UITapGestureRecognizer(target: self, action: #selector(DisplayViewController.scrollViewDoubleTapped(_:)))
-        doubleTapRecognizer.numberOfTapsRequired = 2
-        doubleTapRecognizer.numberOfTouchesRequired = 1
+        doubleTapRecognizer.numberOfTapsRequired = 1
         dataScrollView.addGestureRecognizer(doubleTapRecognizer)
         
         if file.fileType == "Photo" {
@@ -77,8 +76,9 @@ class DisplayViewController: BaseVC, UITabBarDelegate, UIScrollViewDelegate, MFM
         titleLabel.layer.cornerRadius = 14.0
         titleLabel.clipsToBounds      = true
         titleLabel.textAlignment      = .Center
-        titleLabel.font               = UIFont(name: "Helvetica Neue", size: 20)
+        titleLabel.font             = UIFont(name: "Futura-Medium", size: 20)
         titleLabel.hidden             = true
+        
         view.addSubview(titleLabel)
         
         
@@ -87,10 +87,15 @@ class DisplayViewController: BaseVC, UITabBarDelegate, UIScrollViewDelegate, MFM
         descTextView.backgroundColor    = VC_FG_COLOR
         descTextView.layer.cornerRadius = 14.0
         descTextView.clipsToBounds      = true
-        descTextView.font               = UIFont(name: "Helvetica Neue", size: 20)
+        descTextView.font               = UIFont(name: "Futura-Medium", size: 20)
         descTextView.hidden             = true
         descTextView.selectable         = true
         descTextView.editable           = false
+        
+        let singleTapGest2 = UITapGestureRecognizer(target: self, action: #selector(DisplayViewController.toggleDetails))
+        singleTapGest2.numberOfTapsRequired = 1
+        descTextView.addGestureRecognizer(singleTapGest2)
+        
         view.addSubview(descTextView)
         
         tabBar.tintColor = UIColor.lightGrayColor()
