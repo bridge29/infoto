@@ -54,8 +54,8 @@ class FolderTVController: BaseTVC, NSFetchedResultsControllerDelegate, EasyTipVi
             
             //// CREATE FOLDERS FOR FIRST TIME USERS
             
-            for (orderPosition,(name, isLocked, daysTilDelete)) in [("Temporary",false,7), ("Private",true,0), ("Misc",false,0),("Receipts",false,0),("Passwords",true,0),("Business Cards",false,0)].enumerate() {
-                self.createFolder(name, isLocked: isLocked, daysTilDelete:daysTilDelete, orderPosition:orderPosition)
+            for (orderPosition,(name, isLocked)) in [("Temporary",false), ("Private",true), ("Misc",false),("Receipts",false),("Passwords",true),("Business Cards",false)].enumerate() {
+                self.createFolder(name, isLocked: isLocked, orderPosition:orderPosition)
             }
             
             //// CREATE SAMPLE FILES FOR FIRST TIME USERS
@@ -117,9 +117,6 @@ class FolderTVController: BaseTVC, NSFetchedResultsControllerDelegate, EasyTipVi
         if let folders = fetchedResultsController.fetchedObjects as? [Folders] {
             if folders.count == 0 {
                 self.showPopupMessage("No folders. Tap + to create one", remove:false)
-            }
-            for folder in folders{
-                self.deleteTempFiles(folder)
             }
             
             ///getIAPInfo()
@@ -235,7 +232,7 @@ class FolderTVController: BaseTVC, NSFetchedResultsControllerDelegate, EasyTipVi
         
         let cell: FolderTVCell = tableView.dequeueReusableCellWithIdentifier("FolderCell", forIndexPath: indexPath) as! FolderTVCell
         cell.folder            = fetchedResultsController.fetchedObjects![indexPath.section] as! Folders
-        cell.titleLabel.text   = (cell.folder.daysTilDelete == 0) ? cell.folder.name : "\(cell.folder.name!) - \(cell.folder.daysTilDelete)"
+        cell.titleLabel.text   = cell.folder.name
         
         if cell.folder.isLocked {
             cell.lockIMG.hidden = false

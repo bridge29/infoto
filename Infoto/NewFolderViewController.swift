@@ -10,12 +10,11 @@ import UIKit
 import CoreData
 import EasyTipView
 
-class NewFolderViewController: BaseVC, UITextFieldDelegate, UIPickerViewDataSource, UIPickerViewDelegate {
+class NewFolderViewController: BaseVC, UITextFieldDelegate {
 
     @IBOutlet weak var lockSwitch: UISwitch!
     @IBOutlet weak var folderName: UITextField!
     @IBOutlet weak var lockLabel: UILabel!
-    @IBOutlet weak var daysTilDeletePicker: UIPickerView!
     var editMode = false
     var editFolder : Folders!
     var dtdArray = ["Never"]
@@ -25,7 +24,6 @@ class NewFolderViewController: BaseVC, UITextFieldDelegate, UIPickerViewDataSour
         super.viewDidLoad()
 
         self.folderName.delegate = self
-        self.daysTilDeletePicker.delegate = self
         
         for num in 1...30{
             dtdArray.append("\(num)")
@@ -35,7 +33,6 @@ class NewFolderViewController: BaseVC, UITextFieldDelegate, UIPickerViewDataSour
             self.folderName.text = self.editFolder.name
             self.lockSwitch.on   = self.editFolder.isLocked
             self.lockLabel.text = (self.editFolder.isLocked) ? "Locked" : "Unlocked"
-            self.daysTilDeletePicker.selectRow(Int(self.editFolder.daysTilDelete), inComponent: 0, animated: true)
         }
         
         let firstWordOfTitle = (editMode) ? "Edit" : "New"
@@ -43,18 +40,6 @@ class NewFolderViewController: BaseVC, UITextFieldDelegate, UIPickerViewDataSour
     }
     
     // MARK: - Delegate Methods
-    
-    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
-        return 1
-    }
-    
-    func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return dtdArray.count
-    }
-    
-    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return dtdArray[row]
-    }
     
 //    func textFieldShouldBeginEditing(textField: UITextField) -> Bool{
 //        print("TextField did begin editing method called")
@@ -80,8 +65,6 @@ class NewFolderViewController: BaseVC, UITextFieldDelegate, UIPickerViewDataSour
                 notifyAlert(self, title: "Folder Name", message: "The name of your folder. Give a name that categorizes the infotos (e.g. Recipes).")
             case 12:
                 notifyAlert(self, title: "Lock Option", message: "Locked folders can only be accessed using Touch ID. Lock folders for infotos you want to keep private (e.g. passwords).")
-            case 13:
-                notifyAlert(self, title: "Days to Delete", message: "Many infotos won't be needed after a few days or even hours. You can create temporary folders that will delete them after x-days. The Temporary folder we created for you is set to delete infotos after 7 days.")
             default:
                 break
         }
@@ -90,7 +73,6 @@ class NewFolderViewController: BaseVC, UITextFieldDelegate, UIPickerViewDataSour
     @IBAction func saveFolder(sender: AnyObject) {
         
         let isLocked      = (self.lockLabel.text == "Locked") ? true : false
-        let daysTilDelete = self.daysTilDeletePicker.selectedRowInComponent(0)
         var name          = self.folderName.text!
         name              = name.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
         
@@ -112,7 +94,7 @@ class NewFolderViewController: BaseVC, UITextFieldDelegate, UIPickerViewDataSour
                 } else {
                     
                     //// Folder name is valid, save folder and pop view controller
-                    self.createFolder(name, isLocked: isLocked, daysTilDelete: daysTilDelete, orderPosition: orderPosition)
+                    self.createFolder(name, isLocked: isLocked, orderPosition: orderPosition)
                     self.navigationController?.popViewControllerAnimated(true)
                 }
             } catch {
@@ -121,7 +103,6 @@ class NewFolderViewController: BaseVC, UITextFieldDelegate, UIPickerViewDataSour
         } else {
             self.editFolder.name = name
             self.editFolder.isLocked = isLocked
-            self.editFolder.daysTilDelete = Int16(daysTilDelete)
             saveContext()
             self.navigationController?.popViewControllerAnimated(true)
         }

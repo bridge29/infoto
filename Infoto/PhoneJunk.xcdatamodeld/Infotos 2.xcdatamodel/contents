@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="10174" systemVersion="15F34" minimumToolsVersion="Automatic">
+    <entity name="Files" representedClassName="Files" syncable="YES">
+        <attribute name="create_date" attributeType="Date" syncable="YES"/>
+        <attribute name="deleteDayNum" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="desc" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="edit_date" attributeType="Date" syncable="YES"/>
+        <attribute name="fileName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fileType" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="whichFolder" maxCount="1" deletionRule="Nullify" destinationEntity="Folders" inverseName="files" inverseEntity="Folders" syncable="YES"/>
+    </entity>
+    <entity name="Folders" representedClassName="Folders" syncable="YES">
+        <attribute name="isLocked" attributeType="Boolean" syncable="YES"/>
+        <attribute name="name" attributeType="String" syncable="YES"/>
+        <attribute name="orderPosition" optional="YES" attributeType="Integer 16" defaultValueString="200" syncable="YES"/>
+        <attribute name="sortBy" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <relationship name="files" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Files" inverseName="whichFolder" inverseEntity="Files" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Files" positionX="-344" positionY="-108" width="128" height="165"/>
+        <element name="Folders" positionX="-549" positionY="-109" width="128" height="120"/>
+    </elements>
+</model>

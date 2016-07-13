@@ -2,7 +2,7 @@
 //  Folders+CoreDataProperties.swift
 //  Infoto
 //
-//  Created by Scott Bridgman on 2/21/16.
+//  Created by Scott Bridgman on 7/13/16.
 //  Copyright © 2016 Tohism. All rights reserved.
 //
 //  Choose "Create NSManagedObject Subclass…" from the Core Data editor menu
@@ -14,7 +14,6 @@ import CoreData
 
 extension Folders {
 
-    @NSManaged var daysTilDelete: Int16
     @NSManaged var isLocked: Bool
     @NSManaged var name: String?
     @NSManaged var orderPosition: Int16

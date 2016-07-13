@@ -23,7 +23,7 @@ class BaseVC: UIViewController {
     }
     
     //// Creates folder item in core data
-    func createFolder(name:String, isLocked:Bool, daysTilDelete:Int = 0, orderPosition:Int = 0){
+    func createFolder(name:String, isLocked:Bool, orderPosition:Int = 0){
         
         //// Make fetch request to check if folder already exists.
         //// Can't have two folders with same name.
@@ -45,7 +45,6 @@ class BaseVC: UIViewController {
         let newFolder = NSEntityDescription.insertNewObjectForEntityForName("Folders", inManagedObjectContext: self.moc)
         newFolder.setValue(name, forKey: "name")
         newFolder.setValue(isLocked, forKey: "isLocked")
-        newFolder.setValue(daysTilDelete, forKey:"daysTilDelete")
         newFolder.setValue(orderPosition, forKey: "orderPosition")
         saveContext()
     }
@@ -300,8 +299,7 @@ class BaseTVC: UITableViewController {
             do {
                 try NSFileManager.defaultManager().removeItemAtPath(getFilePath(fn))
             } catch {
-                snp()
-                //fatalError("Failed to remove file in Documents Directory: \(error)")
+                snp("Tried to delete file \(file.fileName) but couldn't \(error)")
             }
         }
         
@@ -309,6 +307,7 @@ class BaseTVC: UITableViewController {
         self.saveContext()
     }
     
+    /*
     func deleteTempFiles(folder:Folders){
         if folder.daysTilDelete > 0 {
             let fetchRequest = NSFetchRequest(entityName: "Files")
@@ -329,9 +328,10 @@ class BaseTVC: UITableViewController {
             }
         }
     }
+    */
     
     //// Creates folder item in core data
-    func createFolder(name:String, isLocked:Bool, daysTilDelete:Int = 0, orderPosition:Int = 0){
+    func createFolder(name:String, isLocked:Bool, orderPosition:Int = 0){
         
         let fetchRequest = NSFetchRequest(entityName: "Folders")
         fetchRequest.predicate = NSPredicate(format: "name == %@", name)
@@ -349,7 +349,6 @@ class BaseTVC: UITableViewController {
         let newFolder = NSEntityDescription.insertNewObjectForEntityForName("Folders", inManagedObjectContext: self.moc)
         newFolder.setValue(name, forKey: "name")
         newFolder.setValue(isLocked, forKey: "isLocked")
-        newFolder.setValue(daysTilDelete, forKey:"daysTilDelete")
         newFolder.setValue(orderPosition, forKey: "orderPosition")
         saveContext()
         //print("Created Folder: \(name)")
