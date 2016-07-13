@@ -16,12 +16,14 @@ class MenuTVController: BaseTVC, EasyTipViewDelegate {
                      "Suggestions",
                      "Reset tips",
                      "Support & Feedback",
-                     "Rate Us"]
+                     "Rate Us",
+                     "Saving infotos"]
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         if maxFileCount > 0 {
+            menuItems.append("Promo")
             menuItems.append("Upgrade to Unlimited infotos")
             menuItems.append("Restore your in-app purchase")
         }
@@ -98,8 +100,38 @@ class MenuTVController: BaseTVC, EasyTipViewDelegate {
             UIApplication.sharedApplication().openURL(NSURL(string:"http://appsto.re/us/JZfpcb.i")!)
             break
         case 6:
-            self.purchaseProduct()
+            let msgStr = "Infotos are only stored in this app on your iPhone, which means a lost or new iPhone will lose your infotos.\n\nYou can text/email/save infotos by pressing down on the photo/video inside the folder."
+            showPopupMessage(msgStr, widthMult:0.9, heightMult:1.2, remove:false)
         case 7:
+            //1. Create the alert controller.
+            let alert = UIAlertController(title: "Promo for unlimited infotos", message: "Enter promo:", preferredStyle: .Alert)
+            
+            //2. Add the text field. You can configure it however you need.
+            alert.addTextFieldWithConfigurationHandler({ (textField) -> Void in
+                textField.text = ""
+            })
+            
+            //3. Grab the value from the text field, and print it when the user clicks OK.
+            alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: { (action) -> Void in
+                let textField = alert.textFields![0] as UITextField
+                let date = NSDate()
+                let calendar = NSCalendar.currentCalendar()
+                let components = calendar.components([.Month , .Year], fromDate: date)
+                let year =  components.year
+                let month = components.month
+                if (textField.text == "\(month)\(year)\(month)"){
+                    notifyAlert(self, title: "Yay!", message: "You now can now store unlimited infotos!")
+                    maxFileCount = 0
+                }else{
+                    notifyAlert(self, title: "Uh oh", message: "Sorry the promo you entered is either invalid or expired.")
+                }
+            }))
+            
+            // 4. Present the alert.
+            self.presentViewController(alert, animated: true, completion: nil)
+        case 8:
+            self.purchaseProduct()
+        case 9:
             self.restorePurcase()
         default:
             snp()

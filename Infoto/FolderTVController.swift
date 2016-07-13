@@ -54,7 +54,7 @@ class FolderTVController: BaseTVC, NSFetchedResultsControllerDelegate, EasyTipVi
             
             //// CREATE FOLDERS FOR FIRST TIME USERS
             
-            for (orderPosition,(name, isLocked, daysTilDelete)) in [("Temporary",false,7), ("Private",true,0), ("Misc",false,0),("Receipts",false,0),("Haircuts",false,0),("Travel Info",false,0)].enumerate() {
+            for (orderPosition,(name, isLocked, daysTilDelete)) in [("Temporary",false,7), ("Private",true,0), ("Misc",false,0),("Receipts",false,0),("Passwords",true,0),("Business Cards",false,0)].enumerate() {
                 self.createFolder(name, isLocked: isLocked, daysTilDelete:daysTilDelete, orderPosition:orderPosition)
             }
             
@@ -62,7 +62,7 @@ class FolderTVController: BaseTVC, NSFetchedResultsControllerDelegate, EasyTipVi
             for (secAdd, (infotoTitle, fileName, desc)) in [
                     ("Ex: Recipe","recipe","Bring that heavy cookbook with you to the grocery store!"),
                     ("Ex: Gym Sched","gym_sched","Stop re-googling your gym schedule every day."),
-                    ("Ex: Reciept","receipt","Make sure your receipts match your credit card statements.")].enumerate() {
+                    ("Ex: Receipt","receipt","Make sure your receipts match your credit card statements.")].enumerate() {
                 let secFileName = "\(Int(NSDate().timeIntervalSince1970) + secAdd).jpg"
                 UIImageJPEGRepresentation(UIImage(named: "example_\(fileName)")!,1.0)!.writeToFile(getFilePath(secFileName), atomically: true)
                 let newFile = NSEntityDescription.insertNewObjectForEntityForName("Files", inManagedObjectContext: self.moc)
@@ -168,7 +168,7 @@ class FolderTVController: BaseTVC, NSFetchedResultsControllerDelegate, EasyTipVi
                         let cell1 = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! FolderTVCell
                         EasyTipView.show(forView: cell1.cameraIMG,
                             withinSuperview: self.tableView,
-                            text: "Tap the camera to create\na new infoto.",
+                            text: "Tap button to create\na new infoto.",
                             preferences: prefs,
                             delegate: self)
                     

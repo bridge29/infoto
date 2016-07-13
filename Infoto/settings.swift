@@ -31,6 +31,7 @@ let MAX_RATE_HITS   = 20 // Number of hits to wait to pop up rate us message
 let VC_FG_COLOR     = UIColor(red: 102/255, green: 204/255, blue: 255/255, alpha: 1)
 let VC_BG_COLOR     = UIColor(red: 240/255, green: 240/255, blue: 240/255, alpha: 1)
 let VC_BORDER_COLOR = UIColor(red: 130/255, green: 120/255, blue: 205/255, alpha: 1)
+let TEXT_COLOR      = UIColor(red: 190/255, green: 220/255, blue: 175/255, alpha: 1)
 let PU_BG_COLOR     = UIColor(hue:0.46, saturation:0.99, brightness:0.6, alpha:1) //UIColor(red: 102/255, green: 255/255, blue: 255/255, alpha: 1)
 let PU_BORDER_COLOR = PU_BG_COLOR //UIColor(red: 250/255, green: 120/255, blue: 205/255, alpha: 1)
 
