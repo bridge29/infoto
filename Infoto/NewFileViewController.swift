@@ -17,6 +17,7 @@ import AssetsLibrary
 
 class NewFileViewController: BaseVC, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UITextFieldDelegate, UITextViewDelegate, UIPickerViewDataSource, UIPickerViewDelegate {
     
+    @IBOutlet weak var daysToDeleteView: UIPickerView!
     @IBOutlet weak var folderView: UIPickerView!
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var descTextView: UITextView!
@@ -35,6 +36,7 @@ class NewFileViewController: BaseVC, UINavigationControllerDelegate, UIImagePick
     var editMode    = false
     var firstAction = ""
     var isTextMode  = false
+    var dtdArray    = ["Never","1","3","5","10","20","30","60"]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,9 +47,15 @@ class NewFileViewController: BaseVC, UINavigationControllerDelegate, UIImagePick
         self.navigationItem.title = "\(firstWordOfTitle) \(fileType)"
         self.titleTextField.text  = (editMode) ? self.editFile.title : PRE_TITLE_TEXT
         self.descTextView.text    = (editMode) ? self.editFile.desc  : PRE_DESC_TEXT
-        self.titleTextField.delegate = self
-        self.descTextView.delegate   = self
-        self.folderView.delegate     = self
+        self.titleTextField.delegate   = self
+        self.descTextView.delegate     = self
+        self.folderView.delegate       = self
+        self.daysToDeleteView.delegate = self
+        if editMode {
+            self.daysToDeleteView.selectRow(Int(self.editFile.deleteDayNum), inComponent: 0, animated: true)
+        }else {
+            self.daysToDeleteView.selectRow(0, inComponent: 0, animated: true)
+        }
         
         
         /// Setup for photo or video
@@ -119,12 +127,17 @@ class NewFileViewController: BaseVC, UINavigationControllerDelegate, UIImagePick
     }
     
     func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return folders.count
+            return (pickerView.tag == 30) ? folders.count : dtdArray.count
     }
     
     func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        let folder = folders[row]
-        return folder.name
+        if pickerView.tag == 30 {
+            let folder = folders[row]
+            return folder.name
+        }else {
+            return dtdArray[row]
+        }
+        
     }
     
     func getFileData(useCamera:Bool){
@@ -223,6 +236,8 @@ class NewFileViewController: BaseVC, UINavigationControllerDelegate, UIImagePick
         desc         = (desc  == PRE_DESC_TEXT)  ? "" : desc
         let fileExt  = (fileType == "Photo") ? "jpg" : "mov"
         let fileName = (editMode) ? self.editFile.fileName! : "\(Int(NSDate().timeIntervalSince1970)).\(fileExt)"
+        let dtdValue = dtdArray[daysToDeleteView.selectedRowInComponent(0)]
+        let deleteNum = (dtdValue == "Never") ? 0 : Int(dtdValue)
         
         if (saveData(fileName)){
             
@@ -232,6 +247,7 @@ class NewFileViewController: BaseVC, UINavigationControllerDelegate, UIImagePick
                 self.editFile.title = title
                 self.editFile.desc  = desc
                 self.editFile.whichFolder = self.folders[folderView.selectedRowInComponent(0)]
+                self.editFile.deleteDayNum = deleteNum as Int16
                 
             } else {
                 
@@ -242,6 +258,7 @@ class NewFileViewController: BaseVC, UINavigationControllerDelegate, UIImagePick
                 newFile.setValue(NSDate(), forKey: "create_date")
                 newFile.setValue(NSDate(), forKey: "edit_date")
                 newFile.setValue(fileName, forKey: "fileName")
+                newFile.setValue(deleteNum, forKey: "deleteDayNum")
                 newFile.setValue(self.folders[folderView.selectedRowInComponent(0)], forKey: "whichFolder")
             }
             

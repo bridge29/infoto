@@ -17,17 +17,12 @@ class NewFolderViewController: BaseVC, UITextFieldDelegate {
     @IBOutlet weak var lockLabel: UILabel!
     var editMode = false
     var editFolder : Folders!
-    var dtdArray = ["Never"]
     var orderPosition:Int = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         self.folderName.delegate = self
-        
-        for num in 1...30{
-            dtdArray.append("\(num)")
-        }
         
         if editMode {
             self.folderName.text = self.editFolder.name
