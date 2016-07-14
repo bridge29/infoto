@@ -118,9 +118,11 @@ class FolderTVController: BaseTVC, NSFetchedResultsControllerDelegate, EasyTipVi
             if folders.count == 0 {
                 self.showPopupMessage("No folders. Tap + to create one", remove:false)
             }
-            
-            ///getIAPInfo()
         }
+        
+        /// Check and delete files
+        self.deleteTempFiles()
+        
         
         if rateNumber > MAX_RATE_HITS {
             showRateUs()

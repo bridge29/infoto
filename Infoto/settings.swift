@@ -182,7 +182,8 @@ func getFileDateLabelText(date:NSTimeInterval, useDateFormat:Bool=true) ->String
         
     }else{
         
-        let seconds = Int(NSDate.timeIntervalSinceReferenceDate() - date)
+        var seconds = Int(NSDate.timeIntervalSinceReferenceDate() - date)
+        seconds = (seconds < 0) ? -1 * seconds : seconds
         var num = 1
         var unit = "min"
         
@@ -197,7 +198,7 @@ func getFileDateLabelText(date:NSTimeInterval, useDateFormat:Bool=true) ->String
             num  = seconds/3600
             unit = "hour"
         case  86400..<1209600:
-            num  = seconds/86400
+            num  = Int(round(Float(seconds)/86400.0))
             unit = "day"
         default:
             return "\(seconds/604800)w"

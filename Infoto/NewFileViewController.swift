@@ -237,7 +237,7 @@ class NewFileViewController: BaseVC, UINavigationControllerDelegate, UIImagePick
         let fileExt  = (fileType == "Photo") ? "jpg" : "mov"
         let fileName = (editMode) ? self.editFile.fileName! : "\(Int(NSDate().timeIntervalSince1970)).\(fileExt)"
         let dtdValue = dtdArray[daysToDeleteView.selectedRowInComponent(0)]
-        let deleteNum = (dtdValue == "Never") ? 0 : Int(dtdValue)
+        let deleteNum:Int! = (dtdValue == "Never") ? 0 : Int(dtdValue)
         
         if (saveData(fileName)){
             
@@ -247,7 +247,7 @@ class NewFileViewController: BaseVC, UINavigationControllerDelegate, UIImagePick
                 self.editFile.title = title
                 self.editFile.desc  = desc
                 self.editFile.whichFolder = self.folders[folderView.selectedRowInComponent(0)]
-                self.editFile.deleteDayNum = deleteNum as Int16
+                self.editFile.deleteDayNum = Int16(deleteNum)
                 
             } else {
                 

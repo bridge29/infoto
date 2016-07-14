@@ -307,28 +307,24 @@ class BaseTVC: UITableViewController {
         self.saveContext()
     }
     
-    /*
-    func deleteTempFiles(folder:Folders){
-        if folder.daysTilDelete > 0 {
-            let fetchRequest = NSFetchRequest(entityName: "Files")
-            fetchRequest.predicate = NSPredicate(format: "whichFolder == %@", folder)
-            
-            do {
-                let files = try self.moc.executeFetchRequest(fetchRequest) as! [Files]
-                for file in files{
-                    let seconds = Int(NSDate.timeIntervalSinceReferenceDate() - file.edit_date)
-                    if seconds > 86400 * Int(folder.daysTilDelete){
-                        deleteFile(file)
-                    }
+    func deleteTempFiles(){
+        
+        let fetchRequest = NSFetchRequest(entityName: "Files")
+        fetchRequest.predicate = NSPredicate(format: "deleteDayNum > 0")
+        do {
+            let files = try self.moc.executeFetchRequest(fetchRequest) as! [Files]
+            for file in files{
+                //print("\(file.deleteDayNum) \(file.title!)")
+                let seconds = Int(NSDate.timeIntervalSinceReferenceDate() - file.edit_date)
+                if seconds > 86400 * Int(file.deleteDayNum){
+                    deleteFile(file)
                 }
-                
-            } catch {
-                snp()
-                //fatalError("Failed fetch request: \(error)")
             }
+        } catch {
+            snp()
+            //fatalError("Failed fetch request: \(error)")
         }
     }
-    */
     
     //// Creates folder item in core data
     func createFolder(name:String, isLocked:Bool, orderPosition:Int = 0){

@@ -188,7 +188,13 @@ class FileTVController: BaseTVC, NSFetchedResultsControllerDelegate, EasyTipView
         
         cell.file              = fetchedResultsController.objectAtIndexPath(indexPath) as! Files
         cell.titleLabel.text   = (cell.file.title == "") ? "  " : cell.file.title
-        cell.descTextView.text = cell.file.desc
+
+        if cell.file.deleteDayNum > 0 {
+            let expireTS = Int(cell.file.edit_date) + (86400 * Int(cell.file.deleteDayNum))
+            cell.descTextView.text = "Deleting file in: \(getFileDateLabelText(NSTimeInterval(expireTS), useDateFormat: false))\n\(cell.file.desc!)"
+        } else {
+            cell.descTextView.text = cell.file.desc!
+        }
         cell.dataScrollView.viewWithTag(20)?.removeFromSuperview()
         
         //// Add dateLabel text
